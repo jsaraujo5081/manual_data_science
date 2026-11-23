@@ -1,0 +1,926 @@
+---
+title: "Capítulo 2. Diccionarios y Estructuras Lógicas"
+subtitle: "I. Fundamentos de Programación con Python"
+jupyter: python3
+---
+
+Continuamos avanzando en el aprendizaje de los fundamentos de programación mediante el uso de **Python**, profundizando en conceptos esenciales para la construcción de programas más estructurados, dinámicos y eficientes. En esta etapa, los ejercicios están orientados al desarrollo de habilidades relacionadas con la organización de datos, la automatización de procesos repetitivos y la toma de decisiones dentro de un programa, elementos fundamentales en cualquier proceso de análisis y ciencia de datos.
+
+A través de estas actividades, se busca fortalecer la capacidad de diseñar soluciones lógicas a problemas de programación, promoviendo además la escritura de código reutilizable, claro y fácil de mantener. Los conceptos abordados permitirán comprender cómo estructurar mejor la información, ejecutar instrucciones de manera iterativa y controlar el flujo de ejecución de acuerdo con diferentes condiciones o escenarios.
+
+En particular, durante estos ejercicios se trabajará en la comprensión y aplicación de los siguientes temas:
+
+* Creación, acceso y modificación de diccionarios.
+* Definición y uso de funciones para automatización de procesos.
+* Creación y uso de bucles o estructuras repetitivas.
+* Creación y uso de estructuras condicionales.
+
+El dominio de estos conceptos representa un paso importante dentro de tu aprendizaje, ya que te permitirá desarrollar programas con mayor nivel de complejidad y capacidad de adaptación. Asimismo, estas herramientas constituyen la base para el estudio posterior de estructuras de datos más avanzadas en el contexto de la ciencia de datos.
+
+## Creación, acceso y modificación de diccionarios
+
+Los diccionarios son estructuras de datos que permiten almacenar información en pares de *clave* y *valor*, facilitando la organización y recuperación eficiente de datos. A diferencia de las listas, donde los elementos se acceden mediante posiciones numéricas, los diccionarios permiten acceder a la información a través de identificadores específicos (claves), lo que los convierte en herramientas especialmente útiles para representar datos estructurados y relaciones entre elementos. En **Python**, los diccionarios son ampliamente utilizados en tareas de análisis y ciencia de datos, ya que permiten configurar parámetros eficientemente y modelar información compleja dada su flexibilidad y rapidez de acceso.
+
+### Ejercicio 1
+
+La empresa Aleph mantiene información de sus clientes, y te menciona que si bien todos los datos son correctos, quisiera que se trabaje con una estructura de datos tipo diccionario para garantizar la calidad de los registros históricos.
+
+Visto esto, crea e imprime un diccionario `cliente_dicc` que contenga entre llaves `{ }` la información de nombre y edad según lo descrito a continuación:
+
+| Nombre   | Edad |
+|----------|------|
+| jaraujo  | 38   |
+| ppaez    | 46   |
+| nhadathy | 37   |
+| ctorres  | 25   |
+| dpino    | 72   |
+| pmontero | 69   |
+
+Utiliza el nombre como clave para el diccionario tal que cada elemento sea de la forma `nombre: edad`.
+
+```{python}
+cliente_dicc = {
+    "jaraujo": 38,
+    "ppaez": 46,
+    "nhadathy": 37,
+    "ctorres": 25,
+    "dpino": 72,
+    "pmontero": 69
+}
+
+cliente_dicc
+```
+
+Vuelve a crear el mismo diccionario solamente que ahora utiliza la función `dict` y define cada elemento con la forma `nombre = edad`.
+
+```{python}
+cliente_dicc = dict(
+    jaraujo = 38,
+    ppaez = 46,
+    nhadathy = 37,
+    ctorres = 25,
+    dpino = 72,
+    pmontero = 69
+)
+
+cliente_dicc
+```
+
+Consulta el diccionario para conocer la información de la cliente *pmontero*.
+
+```{python}
+print(cliente_dicc["pmontero"])
+```
+
+::: {.callout-note title="El método get"}
+Otra forma que suele utilizarse para extraer información de diccionarios es con el método `get`. Por ejemplo, en este caso para obtener un resultado equivalente se podría utilizar el código:
+
+```python
+print(cliente_dicc.get("pmontero"))
+```
+:::
+
+El director de ventas de la empresa te indica que la edad de *ppaez* no es correcta pues él tiene en realidad 43 años. Corrige el diccionario y verifica que el cambio se haya realizado.
+
+```{python}
+cliente_dicc["ppaez"] = 43
+print(cliente_dicc["ppaez"])
+```
+
+### Ejercicio 2
+
+El mismo director de ventas de la empresa te indica que olvidó pasarte información de un cliente adicional: Sofía Pozo de 29 años de edad. Ingresa este nuevo cliente en el diccionario y verifica su inclusión.
+
+```{python}
+cliente_dicc["spozo"] = 29
+cliente_dicc
+```
+
+Por otra parte, te menciona que el cliente *jaraujo* prefiere ser tratado con su segundo nombre *Sebastián*, por lo que te pide hacer este ajuste en el diccionario modificando su clave adecuadamente. Para esto, primero elimina el registro existente con el método `pop`, y posteriormente crea uno nuevo con la clave correcta.
+
+```{python}
+# Guardar la edad del cliente antes de eliminar su registro
+edad_cliente = cliente_dicc["jaraujo"]
+
+# Eliminar registro de jaraujo con el método pop
+cliente_dicc.pop("jaraujo")
+
+# Crear nuevo registro
+cliente_dicc["saraujo"] = edad_cliente
+cliente_dicc
+```
+
+::: {.callout-note title="El comando del"}
+Otra forma que suele utilizarse para eliminar elementos de un diccionario es con el comando `del`. Por ejemplo, en este caso para obtener un resultado equivalente se podría utilizar el código:
+
+```python
+del cliente_dicc["jaraujo"]
+```
+:::
+
+## Definición y uso de funciones para automatización de procesos
+
+Las funciones constituyen bloques de código reutilizables diseñados para ejecutar tareas específicas dentro de un programa. Su principal objetivo es modularizar la solución de un problema, permitiendo dividir procesos complejos en partes más pequeñas, organizadas y fáciles de mantener. Mediante el uso de funciones, es posible reducir la repetición de código, mejorar la legibilidad de los programas y facilitar la detección de errores. En **Python**, las funciones pueden recibir parámetros de entrada y retornar resultados, lo que favorece la creación de programas más dinámicos, reutilizables y escalables. Vale mencionar que su uso te permitirá desarrollar procesos de manera más eficiente en distintos ámbitos de la preparación, análisis y modelamiento de datos.
+
+### Ejercicio 1
+
+Escribe una función con el comando `def` que tome un nombre cualquiera como entrada e imprima un mensaje de saludo con dicho nombre como parte del texto.
+
+```{python}
+def saludar(nombre):
+    print(f"Hola {nombre}. Un gusto conocerte.")
+```
+
+Utiliza la función con uno de los nombres de clientes de Aleph. Para esto considera que puedes extraer los nombres del diccionario mediante el método `keys` y una vez extraídos, puedes convertirlos en una lista con la función `list`.
+
+```{python}
+# Extraer los nombres del diccionario a modo de lista
+lista_nombres = list(cliente_dicc.keys())
+
+# Seleccionar un elemento cualquiera
+nombre_ejemplo = lista_nombres[3]
+
+# Llamar a la función
+saludar(nombre_ejemplo)
+```
+
+### Ejercicio 2
+
+Escribe una función que tome dos edades cualesquiera como entrada y devuelva su promedio aritmético mediante el comando `return`.
+
+```{python}
+def promedio(edad_1, edad_2):
+    prom = (edad_1 + edad_2) / 2
+    return prom
+```
+
+Utiliza la función con dos edades de clientes de Aleph. Guarda el resultado en una variable llamada `prom_edad` e imprímela. Para esto considera que puedes extraer los valores del diccionario mediante el método `values`, y una vez extraídos puedes convertirlos en una lista con la función `list`.
+
+```{python}
+# Extraer las edades del diccionario a modo de lista
+lista_edades = list(cliente_dicc.values())
+
+# Seleccionar dos elementos cualesquiera
+edad_ej1 = lista_edades[2]
+edad_ej2 = lista_edades[5]
+
+# Llamar a la función
+prom_edad = promedio(edad_ej1, edad_ej2)
+print(prom_edad)
+```
+
+::: {.callout-note title="El comando return"}
+El comando `return` garantiza que el resultado generado por una función pueda guardarse en una variable. En este sentido, cuando crees nuevas funciones pregúntate si la salida a obtener será utilizada posteriormente en tu programa. Si es así, seguramente necesitas utilizar el comando mencionado.
+:::
+
+### Ejercicio 3
+
+Escribe una función que devuelva `True` (Verdadero) si un número entero cualquiera es par, y `False` en caso contrario.
+
+```{python}
+def es_par(n: int) -> bool:  # Para mayor formalidad se pueden especificar los tipos esperados de entradas y salidas
+    par = n % 2 == 0
+    return par
+```
+
+Utiliza la función con dos edades distintas de clientes de forma que un resultado sea Verdadero y otro Falso.
+
+```{python}
+# Seleccionar dos elementos cualesquiera
+edad_ej1 = lista_edades[1]
+edad_ej2 = lista_edades[3]
+
+# Llamar a la función
+print(f"Edad 1: {edad_ej1} --> Es par: {es_par(edad_ej1)}")
+print(f"Edad 2: {edad_ej2} --> Es par: {es_par(edad_ej2)}")
+```
+
+### Ejercicio 4
+
+Escribe una función que permita ingresar un nuevo cliente al diccionario. La función debe mostrar un mensaje indicando que el cliente se ha agregado satisfactoriamente y el tamaño del diccionario luego de que se ha agregado mediante la función `len`.
+
+```{python}
+def nuevo_cliente(nombre, edad):
+    cliente_dicc[nombre] = edad
+    tam = len(cliente_dicc)
+    print(f"El cliente {nombre} se ha agregado satisfactoriamente.\nClientes registrados: {tam}")
+```
+
+Utiliza la función para agregar un nuevo cliente de nombre *mandrade* que tiene 51 años de edad.
+
+```{python}
+nuevo_cliente("mandrade", 51)
+cliente_dicc
+```
+
+## Creación y uso de bucles o estructuras repetitivas
+
+Los bucles, también conocidos como estructuras repetitivas, permiten ejecutar un conjunto de instrucciones múltiples veces de manera automática. Estas estructuras son fundamentales cuando se requiere procesar colecciones de datos, realizar tareas iterativas o automatizar operaciones repetitivas. El uso adecuado de bucles contribuye significativamente a la eficiencia y simplicidad de un programa, evitando la necesidad de escribir instrucciones redundantes. En **Python**, los bucles más utilizados son los llamados `for` y `while`, cada uno orientado a diferentes tipos de procesos iterativos. Por una parte los bucles `for` facilitan el realizar tareas específicas en cada uno de los elementos de objetos iterables (p. ej., listas o diccionarios); mientras que los bucles `while` se especializan en repetir procedimientos mientras se cumpla una condición específica.
+
+### Ejercicio 1
+
+Utiliza un bucle `for` para transformar el diccionario de clientes en una lista anidada `cliente_list` donde cada sublista contenga como elementos el nombre y la edad de cada persona.
+
+```{python}
+# Definir lista vacía
+cliente_list = []
+
+# Ejecutar el bucle en cada elemento del diccionario
+for nombre in cliente_dicc.keys():
+    caso = [nombre, cliente_dicc[nombre]]
+    cliente_list.append(caso)
+
+cliente_list
+```
+
+Con la lista obtenida y utilizando un bucle `for`, imprime para cada cliente un mensaje que diga lo siguiente:
+
+*El cliente de nombre (aquí va el nombre del cliente) tiene (aquí va su edad) años.*
+
+```{python}
+for cliente in cliente_list:
+    print(f"El cliente de nombre {cliente[0]} tiene {cliente[1]} años.")
+```
+
+### Ejercicio 2
+
+Genera un saludo para todos los clientes utilizando un bucle `for` y una de las funciones creadas previamente.
+
+```{python}
+for cliente in cliente_list:
+    nombre = cliente[0]
+    saludar(nombre)
+```
+
+### Ejercicio 3
+
+Utiliza un bucle `while` para recorrer la lista de clientes y mostrar la información del primer jubilado (mayor de 65 años) registrado.
+
+```{python}
+# Definir variable para evaluar condición
+edad_prueba = 0
+
+# Definir variable para iterar sobre la lista de clientes
+pos = 0
+
+# Generar bucle hasta encontrar primer cliente jubilado
+while edad_prueba <= 65:
+    edad_prueba = cliente_list[pos][1]
+    pos += 1  # Equivalente a pos = pos + 1
+
+print(f"El cliente de nombre {cliente_list[pos - 1][0]} tiene {cliente_list[pos - 1][1]} años.")
+```
+
+### Ejercicio 4
+
+Utiliza bucles `for` y `while` de forma anidada para crear una lista `clientes_rep` que contenga cada nombre de cliente repetido 3 veces.
+
+```{python}
+# Crear lista vacía para guardar resultados
+clientes_rep = []
+
+# Ejecutar bucle for que recorra lista de clientes
+for cliente in cliente_list:
+
+    # Definir iterable para bucle while
+    rep = 1
+
+    # Ejecutar bucle while que repita el nombre 3 veces
+    while rep <= 3:
+        clientes_rep.append(cliente[0])
+        rep += 1
+
+clientes_rep
+```
+
+::: {.callout-tip title="break y continue"}
+Cuando se trabaja con bucles, existen dos comandos en **Python** que pueden ser de gran utilidad en algunos contextos: `break` y `continue`. Te sugiero investigar sobre qué hacen en la [documentación](https://docs.python.org/3/tutorial/controlflow.html#break-and-continue-statements) oficial.
+:::
+
+## Creación y uso de estructuras condicionales
+
+Las estructuras condicionales permiten que un programa tome decisiones y ejecute diferentes acciones según se cumplan determinadas condiciones lógicas. Este mecanismo constituye la base del control de flujo en programación, ya que posibilita adaptar el comportamiento del programa frente a distintos escenarios o entradas de información. A través de condicionales, un algoritmo puede evaluar expresiones lógicas y seleccionar la ruta de ejecución más adecuada. En **Python**, las instrucciones `if`, `elif` y `else` proporcionan una forma clara y flexible de implementar procesos de decisión dentro de un programa.
+
+### Ejercicio 1
+
+Recorre el diccionario de clientes con un bucle y extrae en una lista `clientes_jovenes` todos los nombres de los clientes que tengan menos de 45 años.
+
+```{python}
+# Crear lista vacía para almacenar nombres de clientes jóvenes
+clientes_jovenes = []
+
+# Definir bucle for para recorrer el diccionario
+for nombre in cliente_dicc.keys():
+
+    edad_cliente = cliente_dicc[nombre]
+
+    # Guardar nombre en lista si cumple con la condición mediante un if
+    if edad_cliente < 45:
+        clientes_jovenes.append(nombre)
+
+print(clientes_jovenes)
+```
+
+### Ejercicio 2
+
+Toma como referencia el código del ejercicio anterior de forma que ahora se guarden las edades de los clientes jóvenes en una lista llamada `edades_jovenes`, y en otra lista `edades_viejos` se guarden las edades de los clientes que no son jóvenes.
+
+```{python}
+# Crear listas vacías para almacenar edades de clientes jóvenes y "no jóvenes"
+edades_jovenes = []
+edades_viejos = []
+
+# Definir bucle for para recorrer el diccionario
+for nombre in cliente_dicc.keys():
+
+    edad_cliente = cliente_dicc[nombre]
+
+    # Guardar edades en lista si cumplen con condiciones mediante un if y else
+    if edad_cliente < 45:
+        edades_jovenes.append(edad_cliente)
+    else:
+        edades_viejos.append(edad_cliente)
+
+print(edades_jovenes)
+print(edades_viejos)
+```
+
+Calcula ahora el promedio de edades de clientes jóvenes y viejos e imprime los resultados con un mensaje adecuado y comprensible. Utiliza para esto las funciones `sum` y `len`.
+
+```{python}
+prom_jovenes = sum(edades_jovenes) / len(edades_jovenes)
+prom_viejos = sum(edades_viejos) / len(edades_viejos)
+
+print(f"El promedio de edad de clientes jóvenes es de {prom_jovenes:.1f} años, mientras que el de clientes viejos es de {prom_viejos:.1f}.")
+```
+
+### Ejercicio 3
+
+Aleph busca generar campañas específicas de mercadeo para clientes menores a 30 años, otra para clientes entre 30 y 45 años, y una tercera para clientes cercanos a la jubilación (de igual o más de 45 años). Modifica el código generado en el ejercicio anterior a fin de que el mismo permita contar con listas de nombres de clientes en cada uno de los segmentos relevantes.
+
+```{python}
+# Crear listas vacías para almacenar resultados de edades
+nombres_sub30 = []
+nombres_sub45 = []
+nombres_over45 = []
+
+# Definir bucle para recorrer el diccionario
+for nombre in cliente_dicc.keys():
+
+    edad_cliente = cliente_dicc[nombre]
+
+    # Guardar nombres según condición mediante if, elif y else
+    if edad_cliente < 30:
+        nombres_sub30.append(nombre)
+    elif edad_cliente < 45:
+        nombres_sub45.append(nombre)
+    else:
+        nombres_over45.append(nombre)
+
+print("MERCADO 1 (menores a 30):")
+print(nombres_sub30)
+print()
+print("MERCADO 2 (entre 30 y 45):")
+print(nombres_sub45)
+print()
+print("MERCADO 3 (45 o más):")
+print(nombres_over45)
+```
+
+::: {.callout-tip title="Python Comprehension"}
+En **Python** existe una sintaxis comprimida que permite utilizar bucles y condicionales sin que esto implique una cantidad excesiva de líneas de código cuando se desean construir colecciones de elementos. Esta sintaxis se conoce como *Python Comprehension* y, por ejemplo, para obtener la primera lista del ejercicio anterior, se utilizaría el siguiente código en una sola línea:
+
+```python
+nombres_sub30 = [nombre for nombre in cliente_dicc.keys() if cliente_dicc[nombre] < 30]
+```
+
+Si deseas saber más sobre *Python Comprehension*, consulta este [enlace](https://docs.python.org/3/tutorial/datastructures.html#list-comprehensions).
+:::
+
+## Ejercicios de práctica
+
+A continuación encontrarás ejercicios adicionales para reforzar los cuatro temas del capítulo. Intenta resolver cada uno por tu cuenta antes de desplegar la solución.
+
+### Creación, acceso y modificación de diccionarios
+
+#### Ejercicio 1
+
+Crea un diccionario llamado `btc_grades` donde las claves sean los nombres de usuarios de bitcoins y los valores sus calificaciones de riesgo crediticio. Para esto, considera la siguiente información:
+
+| Usuario | Riesgo (/100) |
+|---------|---------------|
+| Alice   | 82            |
+| Bob     | 78            |
+| Charlie | 92            |
+| Michael | 51            |
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+btc_grades = {
+    "Alice": 82,
+    "Bob": 78,
+    "Charlie": 92,
+    "Michael": 51
+}
+```
+:::
+
+Imprime el diccionario creado.
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+print(btc_grades)
+```
+:::
+
+#### Ejercicio 2
+
+Usando el diccionario creado en el ejercicio anterior, imprime la calificación de riesgo de Bob.
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+print(btc_grades["Bob"])
+```
+:::
+
+Ahora actualiza la calificación de Charlie, cambiándola por un valor cualquiera entre 0 y 100.
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+btc_grades["Charlie"] = 61
+print(btc_grades["Charlie"])
+```
+:::
+
+Elimina a Alice del diccionario usando el método `pop`.
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+btc_grades.pop("Alice")
+print(btc_grades)
+```
+:::
+
+### Definición y uso de funciones
+
+#### Ejercicio 1
+
+Escribe una función llamada `promedios` que calcule las principales medidas de centralidad de dos números cualesquiera y devuelva los resultados a modo de diccionario. Para esto considera los siguientes estadísticos:
+
+* Media aritmética ($\bar{x}_a$):
+
+$$ \bar{x}_a = \frac{x_1 + x_2}{2} $$
+
+* Media geométrica ($\bar{x}_g$):
+
+$$ \bar{x}_g = \sqrt{|x_1 \times x_2|} $$
+
+* Media armónica ($\bar{x}_h$):
+
+$$ \bar{x}_h = \frac{2}{\frac{1}{x_1} + \frac{1}{x_2}} = \frac{2\times x_1 \times x_2}{x_1 + x_2} $$
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+def promedios(x_1, x_2):
+    med_a = (x_1 + x_2) / 2
+    med_g = abs(x_1 * x_2) ** (0.5)
+    med_h = (2 * x_1 * x_2) / (x_1 + x_2)
+    dicc = {
+        "media aritmética": med_a,
+        "media geométrica": med_g,
+        "media armónica": med_h
+    }
+    return dicc
+```
+:::
+
+Comprueba la función creada con dos números cualesquiera.
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+promedios(5.8, 3.7)
+```
+:::
+
+::: {.callout-note title="Más sobre las medias"}
+Si deseas conocer más sobre estos tipos de medias, muy útiles en el análisis estadístico y la ciencia de datos, te recomiendo que revises el siguiente [enlace](https://en.wikipedia.org/wiki/Pythagorean_means).
+:::
+
+#### Ejercicio 2
+
+Escribe una función llamada `varianza` la cual calcule y devuelva este estadístico ($var$) para dos números cualesquiera. Para esto considera la siguiente definición:
+
+$$ var = \frac{(x_1 - \bar{x}_a)^2 + (x_2 - \bar{x}_a)^2}{2} $$
+
+donde $\bar{x}_a$ es la media aritmética tal como la vimos en el ejercicio anterior.
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+def varianza(x_1, x_2):
+    med_a = (x_1 + x_2) / 2
+    var = ((x_1 - med_a) ** 2 + (x_2 - med_a) ** 2) / 2
+    return var
+```
+:::
+
+Comprueba la función creada con dos números cualesquiera. Guarda tu resultado en una variable llamada `var`.
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+var = varianza(20.3, 12.1)
+print(var)
+```
+:::
+
+Obtén la raíz cuadrada de `var` y guárdala en una variable llamada `desv`. Este resultado se conoce como desviación estándar o típica.
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+desv = var**(0.5)
+print(desv)
+```
+:::
+
+::: {.callout-tip title="Varianza y desviación estándar"}
+Tanto la varianza como la desviación estándar son dos estadísticos que miden la dispersión o variabilidad existente en conjuntos de valores. Dado que estás estudiando ciencia de datos, resulta muy importante que los conozcas a profundidad. Por tanto, te recomiendo que investigues un poco más sobre ellos y lo que representan.
+:::
+
+### Bucles o estructuras repetitivas
+
+#### Ejercicio 1
+
+En la siguiente lista se encuentra información sobre usuarios de criptomonedas con su respectiva cantidad de bitcoins, la fecha de su primera transacción y el precio medio en USD de la moneda virtual:
+
+```python
+users_bitcoins = [
+    ['Alice', 2.5, '2023-01-15', 35000],
+    ['Bob', 1.8, '2023-02-20', 38000],
+    ['Charlie', 3.2, '2023-03-10', 42000],
+    ['David', 4.7, '2023-04-05', 40000],
+    ['Emma', 1.3, '2023-05-12', 39000],
+    ['Max', 5.5, '2023-06-20', 43000]
+]
+```
+
+Haz un bucle `for` para verificar la cantidad de usuarios registrados y obtén también el total de bitcoins reportados en la lista.
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+# Definir lista de usuarios
+users_bitcoins = [
+    ['Alice', 2.5, '2023-01-15', 35000],
+    ['Bob', 1.8, '2023-02-20', 38000],
+    ['Charlie', 3.2, '2023-03-10', 42000],
+    ['David', 4.7, '2023-04-05', 40000],
+    ['Emma', 1.3, '2023-05-12', 39000],
+    ['Max', 5.5, '2023-06-20', 43000]
+]
+```
+
+```{python}
+# Definir variables de num_users y total_btc
+num_users = 0
+total_btc = 0
+
+# Generar bucle for para el cálculo de resultados
+for user_info in users_bitcoins:
+    num_users = num_users + 1
+    total_btc = total_btc + user_info[1]
+
+print(f"Existen {num_users} usuarios, con un total de {total_btc:.1f} bitcoins.")
+```
+:::
+
+Finalmente, calcula la cantidad promedio de bitcoins que tienen los usuarios e imprime el resultado.
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+print(f"Cada usuario tiene en promedio {total_btc / num_users:.1f} bitcoins.")
+```
+:::
+
+#### Ejercicio 2
+
+Max es uno de los usuarios de criptomonedas y quiere comprar un nuevo auto, por lo que necesita vender 0.5 bitcoins pero solamente si el precio supera los \$71,000. Entró en la bolsa virtual y creó una orden para ejecutar esta transacción cuando el precio llegue a la cifra deseada.
+
+Entonces, para simular la fluctuación de precios en USD por bitcoin, replica al inicio de tu código las siguientes líneas:
+
+```python
+import random  # random es una librería o módulo que contiene funciones y métodos que no existen en el programa base de Python
+random.seed(123)  # La función seed genera un control de replicabilidad para la generación de números aleatorios
+usd_per_btc = random.randint(10000, 100000)  # La función randint genera números enteros aleatorios (en este caso entre 10K y 100K)
+```
+
+A continuación, utiliza un bucle `while` en donde la primera instrucción sea un mensaje que diga:
+
+*Precio actual: \$`usd_per_btc` - La orden aún no se ha completado.*
+
+Una vez hecho esto, vuelve a generar un precio aleatorio replicando la última línea de código de la generación aleatoria antes descrita para la variable `usd_per_btc`.
+
+Toma en cuenta que cuando el precio supere o iguale el objetivo deseado por Max, el bucle debería finalizar. En este punto tu código debe imprimir el mensaje:
+
+*La orden ha sido completada. Has vendido 0.5 BTC por el precio \$`usd_per_btc` por BTC*.
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+# Copiar código para la generación aleatoria de precio por bitcoin
+import random
+random.seed(123)
+usd_per_btc = random.randint(10000, 100000)
+
+# Generar bucle while para simular precios de bitcoins y ejecutar venta
+while usd_per_btc <= 71000:
+    print(f"Precio actual: ${usd_per_btc:,.0f} - La orden aún no se ha completado.")
+    usd_per_btc = random.randint(10000, 100000)
+
+print(f"La orden ha sido completada. Has vendido 0.5 BTC por el precio ${usd_per_btc:,.0f} por BTC")
+```
+:::
+
+::: {.callout-note title="Librerías para ciencia de datos"}
+En este ejercicio has visto que puedes importar librerías que complementen tu código con funciones y métodos nuevos que no se encuentran en el programa base de **Python**. Te sugiero que busques información sobre las siguientes librerías que son de mucha utilidad para el análisis y la ciencia de datos:
+
+* `numpy`: herramientas para análisis numérico.
+* `scipy`: herramientas para análisis estadístico.
+* `pandas`: herramientas para manipulación de datos tabulares.
+* `matplotlib`: herramientas para visualizaciones.
+* `scikit-learn`: herramientas para modelos predictivos.
+
+Vale indicar que algunas de ellas las empezaremos a usar a partir del siguiente capítulo.
+:::
+
+#### Ejercicio 3
+
+Charlie fue el comprador de los 0.5 bitcoins que vendió Max. Actualiza por tanto la información de estos dos usuarios en la lista `users_bitcoins`. En concreto, tienes que aplicar los siguientes pasos:
+
+1. Reducir la cantidad de bitcoins de Max en 0.5.
+2. Incrementar la cantidad de bitcoins de Charlie en 0.5.
+3. Actualizar el precio promedio por bitcoin de Charlie (considera que mantiene 3.2 bitcoins al precio anterior y 0.5 a un precio dado por el precio de la nueva transacción).
+
+Mantén los formatos numéricos que existen en la lista original.
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+# Reducir bitcoins de Max
+users_bitcoins[-1][1] = users_bitcoins[-1][1] - 0.5
+
+# Incrementar bitcoins de Charlie
+users_bitcoins[2][1] = users_bitcoins[2][1] + 0.5
+
+# Actualizar precio promedio de bitcoins de Charlie
+users_bitcoins[2][3] = int((usd_per_btc * 0.5 + users_bitcoins[2][3] * (users_bitcoins[2][1] - 0.5)) / users_bitcoins[2][1])
+users_bitcoins
+```
+:::
+
+#### Ejercicio 4
+
+Reescribe el siguiente bucle `while` como un bucle `for` de forma que el resultado obtenido sea exactamente igual. Para esto te sugiero primero evaluar y comprender lo que se pretende hacer.
+
+```python
+counter = 0
+while counter < 5:
+    print(counter)
+    counter += 1
+```
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+# Verificar resultado del bucle while
+counter = 0
+while counter < 5:
+    print(counter)
+    counter += 1
+```
+
+```{python}
+# Transformar a bucle for
+for i in range(5):
+    print(i)
+```
+:::
+
+#### Ejercicio 5
+
+Escribe un programa utilizando bucles que muestre la sumatoria de todos los cuadrados de los números entre el 1 y el 100 inclusive.
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+# Definir variable para guardar la suma
+suma = 0
+
+# Generar bucle para operar la suma
+for i in range(1, 101):
+    suma += i**2
+
+print(suma)
+```
+:::
+
+Verifica que la suma es correcta aplicando la siguiente fórmula:
+
+$$ S = \frac{n(n+1)(2n+1)}{6} $$
+
+donde $n$ corresponde al número de iteraciones realizadas en tu bucle.
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+n = 100
+S = n * (n + 1) * (2 * n + 1) * (1 / 6)
+print(int(S))
+```
+:::
+
+::: {.callout-tip title="Serie cuadrática clásica"}
+Esta fórmula que acabas de aplicar se conoce como *serie cuadrática clásica* y, para fortalecer tus habilidades aritméticas, te invito a que intentes demostrar formalmente que para cualquier número natural $n$, se cumple que
+
+$$ \sum_{i=1}^{n} i^2= \frac{n(n+1)(2n+1)}{6} $$
+
+Te doy una pista: podrías emplear la técnica de *inducción*.
+:::
+
+### Estructuras condicionales
+
+#### Ejercicio 1
+
+Escribe una función llamada `es_bisiesto` que, dado un año `a` como entrada, devuelva si es bisiesto o no. Recuerda que para saber si un año es bisiesto, se debe cumplir con las siguientes condiciones:
+
+* El año debe ser divisible por 4.
+* Si es divisible por 100, pero NO es divisible por 400, entonces NO es bisiesto (p. ej., 2000 es bisiesto pero 2100 no lo es).
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+def es_bisiesto(a):
+    bisiesto = True
+    # Probar primera condición
+    if a % 4 == 0:
+        # Probar segunda condición
+        if a % 100 == 0 and a % 400 != 0:
+            bisiesto = False
+    else:
+        bisiesto = False
+    return bisiesto
+```
+:::
+
+Comprueba si los siguientes años son bisiestos: 96, 100, 1492, 1886, 1990, 2000, 4100.
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+# Crear lista con los años solicitados
+periodos = [96, 100, 1492, 1886, 1990, 2000, 4100]
+
+# Generar bucle para comprobar años con la función
+for p in periodos:
+    print(f"El año {p} es bisiesto: {es_bisiesto(p)}")
+```
+:::
+
+#### Ejercicio 2
+
+Escribe una función `es_primo` que reciba como entrada un número natural cualquiera y devuelva si el número es primo o compuesto. Vale indicar que un número primo es aquel que solamente es divisible por 1 y por sí mismo, por ejemplo el 7, 11 o 13. Solamente ten cuidado puesto que el número 1 NO es primo.
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+def es_primo(n):
+    if n == 1:
+        primo = False
+    elif n == 2:
+        primo = True
+    else:
+        primo = True
+        for d in range(2, n):
+            if n % d == 0:
+                primo = False
+                break  # El comando break permite detener el bucle sin necesidad de recorrer todas las opciones
+
+    return primo
+```
+:::
+
+Verifica la función creada para los primeros 100 números enteros. Para ello comprueba que existen 25 números primos en este rango.
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+cantidad_primos = 0
+
+for n in range(1, 101):
+    if es_primo(n):
+        cantidad_primos = cantidad_primos + 1
+
+print(cantidad_primos)
+```
+:::
+
+#### Ejercicio 3
+
+Escribe una función `triangulo_valido` que determine si el triángulo formado por lados $a$, $b$ y $c$ es válido. Para esto, investiga acerca de qué quiere decir que un triángulo sea **válido**.
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+def triangulo_valido(a, b, c):
+    if a + b > c and a + c > b and b + c > a:
+        print("El triángulo SÍ es válido")
+    else:
+        print("El triángulo NO es válido")
+```
+:::
+
+Verifica la función para un triángulo de lados 15, 10 y 5.
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+triangulo_valido(15, 10, 5)
+```
+:::
+
+::: {.callout-tip title="Pruébalo con lápiz y papel"}
+Te sugiero que tomes una hoja de papel, una regla y un lápiz e intentes dibujar este triángulo. ¿Qué problema encuentras?
+:::
+
+#### Ejercicio 4
+
+La sucesión de Fibonacci es un conjunto de números naturales muy famoso que deberías conocer al menos por cultura general. En esta sucesión se cumple que el número $a$ en la posición $i$ está dado por $a_i = a_{i-1} + a_{i-2}$, con $a_1 = 0$ y $a_2 = 1$. En este sentido, los primeros elementos de esta sucesión son:
+
+$$ 0, 1, 1, 2, 3, 5, 8, 13, \ldots $$
+
+Utiliza funciones y condicionales para calcular cuál es el número 40 de Fibonacci.
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+# Definir función
+def fibonacci(n):
+    a1 = 0
+    a2 = 1
+    if n == 1:
+        resultado = a1
+    elif n == 2:
+        resultado = a2
+    else:
+        resultado = fibonacci(n - 1) + fibonacci(n - 2)
+    return resultado
+
+# Calcular y mostrar el número 40 de Fibonacci
+print(f"Número 40 de Fibonacci: {fibonacci(40):,.0f}")
+```
+:::
+
+La combinatoria es una operación matemática que permite estimar cuántos grupos posibles de $k$ elementos se pueden crear a partir de un conjunto de tamaño $n$. Esta operación se define por
+
+$$ \binom{n}{k}  = \frac{n!}{k!(n-k)!} $$
+
+donde $n! = n(n-1)(n-2)\cdots 1$ es el factorial de $n$, y $k! = k(k-1)(k-2)\cdots 1$ es el factorial de $k$. A partir de esta operación es factible, por ejemplo, saber que existen 6 posibles grupos de 2 elementos de un conjunto de 4, ya que
+
+$$ \binom{4}{2}  = \frac{4!}{2!(4-2)!} = \frac{4 \times 3 \times 2 \times 1}{2 \times 1 \times 2 \times 1} = 3 \times 2 = 6$$
+
+Una propiedad interesante asociada a la combinatoria es la denominada *Identidad de Pascal*, la cual afirma que:
+
+$$ \binom{n}{k} = \binom{n-1}{k-1} + \binom{n-1}{k}$$
+
+A partir de esta identidad crea una función que tome dos valores $n$ y $k$ cualesquiera y devuelva el valor de la combinatoria correspondiente. Para esto considera las siguientes propiedades adicionales de la operación:
+
+* $\binom{n}{0} = 1$
+* $\binom{n}{k} = 1$ para $n = k$
+* $\binom{n}{k} = 0$ para $k > n$
+
+Verifica tu función comprobando que $\binom{4}{2} = 6$.
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+# Definir función
+def combinatoria(n, k):
+    if k == 0:
+        return 1
+    if k == n:
+        return 1
+    if k > n:
+        return 0
+    return combinatoria(n - 1, k - 1) + combinatoria(n - 1, k)
+
+# Comprobar función
+combinatoria(4, 2)
+```
+:::
+
+¿Cuánto es $\binom{27}{14}$?
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+combinatoria(27, 14)
+```
+:::
+
+::: {.callout-note title="Distribuciones estadísticas y combinatoria"}
+Los valores que toma una variable presentan un comportamiento que puede describirse formalmente mediante lo que se conoce como **distribución estadística**. Esta distribución refleja la forma en que se organizan y se presentan los datos, y depende de las características particulares de la variable que se está estudiando. Por ello, puede adoptar distintas formas según el fenómeno observado.
+
+Una manera de comprender cómo se generan algunas de estas distribuciones es a través de la combinatoria, que permite estudiar las distintas posibilidades de ocurrencia de determinados resultados. A continuación, se presentan algunas distribuciones estadísticas que siguen este principio:
+
+* Binomial.
+* Multinomial.
+* Binomial negativa.
+* Hipergeométrica.
+* Beta.
+* Gamma.
+
+Te sugiero investigar sobre ellas y sus aplicaciones posibles para el análisis y la ciencia de datos.
+:::

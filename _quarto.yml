@@ -1,0 +1,39 @@
+project:
+  type: book
+  output-dir: _book
+
+book:
+  title: "Ciencia de Datos Aplicada"
+  subtitle: "Guía práctica basada en casos"
+  author: "Juan Sebastián Araujo"
+  search: true
+  chapters:
+    - index.qmd
+    - part: "I. Fundamentos de Programación con Python"
+      chapters:
+        - c01_variables_excepciones_listas.qmd
+        - c02_diccionarios_estructuras_logicas.qmd
+        - c03_intro_pandas.qmd
+    - part: "II. Preparación y Análisis de Datos"
+      chapters:
+        - c04_manipulacion_visualizacion.qmd
+        - c05_eda_descripcion_estadistica.qmd
+        - c06_eda_inferencia_estadistica.qmd
+
+# Configuración común a todos los capítulos
+lang: es
+
+execute:
+  freeze: auto      # guarda los resultados en _freeze/ y solo re-ejecuta lo que cambió
+  echo: true
+  warning: false
+
+format:
+  html:
+    theme: cosmo
+    number-sections: false
+    page-layout: full
+    toc: true
+    toc-depth: 2
+    toc-title: "En este capítulo"
+    code-copy: true

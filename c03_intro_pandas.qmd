@@ -1,0 +1,670 @@
+---
+title: "Capítulo 3. Introducción a Pandas"
+subtitle: "I. Fundamentos de Programación con Python"
+jupyter: python3
+---
+
+En el presente caso de estudio se propone una introducción práctica a los fundamentos de manipulación y análisis de datos utilizando la librería **Pandas**, una de las herramientas más importantes y ampliamente utilizadas dentro del ecosistema de **Python** para el procesamiento de información estructurada en formato tabular. Ante esto, el objetivo principal de estas actividades es desarrollar habilidades iniciales para trabajar con conjuntos de datos reales, comprendiendo no solo las técnicas básicas de transformación y exploración de información, sino también la lógica metodológica que guía un proyecto de análisis de datos.
+
+En el ámbito profesional, el análisis de datos no se limita únicamente a ejecutar código o generar gráficos; requiere comprender el problema que se desea resolver, interpretar correctamente la información disponible y estructurar adecuadamente cada etapa del proceso analítico. Por esta razón, además de introducir herramientas técnicas de manipulación de datos, este caso de estudio busca familiarizarte con algunos de los principios fundamentales que permiten organizar y desarrollar proyectos analíticos de manera ordenada, reproducible y orientada a la toma de decisiones.
+
+Por un lado, a través de **Pandas** trabajarás con tablas de información, aprendiendo a cargar, inspeccionar, limpiar, transformar y analizar datos provenientes de archivos externos. Estas capacidades técnicas constituyen la base de disciplinas como la analítica de negocios, la ciencia de datos, la inteligencia artificial y la investigación aplicada, donde la calidad del análisis depende directamente de la correcta preparación y comprensión de los datos disponibles.
+
+De manera complementaria, durante el desarrollo de este caso se introducirán los primeros criterios metodológicos asociados a un flujo de trabajo analítico básico, abordando por ahora las siguientes etapas:
+
+* Entendimiento del contexto.
+* Entendimiento de los datos.
+* Preparación de los datos.
+* Análisis de datos.
+
+Cada una de estas etapas cumple un rol fundamental dentro de un proyecto de análisis de datos. Comprender el contexto permite identificar el problema de negocio que se desea resolver; entender los datos facilita reconocer la utilidad, limitaciones, estructura y significado de los mismos; preparar los datos asegura la consistencia y calidad de la información a usarse; y finalmente, el análisis de datos permite extraer hallazgos, patrones y conclusiones útiles para apoyar procesos de decisión en el ámbito del problema definido.
+
+Importante mencionar que el desarrollo de estas habilidades representa un primer acercamiento a la construcción de proyectos analíticos reales, promoviendo no solo competencias técnicas relacionadas con programación y manipulación de datos, sino también capacidades analíticas y metodológicas esenciales para enfrentar problemas complejos basados en información.
+
+## Entendimiento del contexto
+
+El ranking de selecciones masculinas de la FIFA constituye uno de los sistemas de clasificación deportiva profesional más reconocidos a nivel mundial. Este mecanismo fue implementado oficialmente en el año 1993, poco antes de la realización de la Copa Mundial de 1994, con el objetivo de establecer una metodología estandarizada que permitiera comparar el desempeño relativo de las distintas selecciones nacionales afiliadas. Desde entonces, el ranking se ha convertido en una referencia central para evaluar el rendimiento competitivo de los equipos nacionales en el contexto internacional.
+
+Esta clasificación se actualiza de manera periódica —habitualmente con frecuencia mensual— tomando en consideración los resultados obtenidos por cada selección en partidos oficiales y amistosos reconocidos por la FIFA. Entre los encuentros considerados se incluyen competiciones continentales, eliminatorias mundialistas, torneos internacionales y partidos amistosos disputados durante las fechas oficiales establecidas en el calendario oficial. Dependiendo de la relevancia del torneo, la fortaleza del rival y el resultado obtenido, cada encuentro aporta una determinada cantidad de puntos al cálculo global de cada selección.
+
+Más allá de su carácter informativo para aficionados, periodistas y analistas deportivos, el ranking FIFA posee una importancia estratégica significativa dentro de la organización del fútbol internacional. Actualmente, este sistema constituye uno de los principales criterios utilizados para definir los bombos y grupos en competiciones oficiales de gran relevancia, especialmente en Copa Mundial. Esto implica que una mejor posición en el ranking puede influir directamente en el nivel de dificultad que enfrentará una selección durante la fase inicial de un torneo mundialista, afectando potencialmente sus probabilidades de clasificación a rondas posteriores.
+
+A lo largo de su historia, el ranking ha experimentado múltiples ajustes metodológicos orientados a mejorar la precisión y representatividad del sistema de puntuación. Entre las modificaciones más relevantes se encuentran las implementadas en enero de 1999, agosto de 2006, agosto de 2011 y agosto de 2018. Cada uno de estos cambios respondió a críticas y limitaciones detectadas en las versiones anteriores del modelo, particularmente relacionadas con la sobrevaloración de ciertos partidos amistosos, diferencias regionales en la competitividad y fluctuaciones excesivas en las posiciones del ranking.
+
+La modificación más reciente, implementada en 2018, introdujo un sistema basado en modelos tipo Elo, que se utilizan en otros deportes y disciplinas competitivas. Este enfoque busca reflejar de manera más realista el desempeño de las selecciones mediante ajustes dinámicos en función de los resultados esperados y obtenidos en cada partido. Como consecuencia, el ranking actual presenta una mayor estabilidad y sensibilidad frente a la calidad de los oponentes y la importancia competitiva de cada encuentro.
+
+Desde una perspectiva analítica, el ranking FIFA representa un caso de estudio particularmente interesante para el análisis de datos y la modelación estadística. Su evolución histórica permite explorar patrones de desempeño deportivo, cambios en la competitividad entre regiones, impacto de eventos internacionales y comportamiento temporal de las selecciones nacionales. Además, el conjunto de datos asociado al ranking ofrece oportunidades para aplicar técnicas de limpieza, transformación, análisis exploratorio y visualización de datos utilizando herramientas como **Pandas**.
+
+## Entendimiento de los datos
+
+Lo primero que te sugiero hacer al iniciar cualquier proyecto de análisis de datos es importar las librerías y módulos con los que vas a trabajar. En este caso en concreto vamos a cargar:
+
+* **Pandas**, cuyo objetivo es proporcionar módulos, funciones y métodos para un eficiente manejo de estructuras tabulares (también conocidos como *dataframes* o *datasets* en el entorno de **Python**).
+* **Numpy**, cuyo objetivo es proporcionar módulos, funciones y métodos para análisis numérico que necesitemos hacer con los datos.
+
+```{python}
+import pandas as pd
+import numpy as np
+```
+
+::: {.callout-note title="Pseudónimos de librerías"}
+El uso de pseudónimos como `pd` para **Pandas** o `np` para **numpy** son un estándar usual en la programación con **Python** y facilitan el uso de las herramientas provistas por estas librerías. A medida que avancemos en nuestro aprendizaje veremos cómo referenciar a estas y otras librerías.
+:::
+
+A continuación, conviene cargar los datos en la variable `df_fifa` mediante la función `read_csv` de **Pandas**. En este caso usaremos la información proveniente del archivo [**fifa_rank.csv**](https://raw.githubusercontent.com/jsaraujo5081/material_curso_data_science/refs/heads/main/datasets/fifa_rank.csv).
+
+```{python}
+df_fifa = pd.read_csv(
+    "https://raw.githubusercontent.com/jsaraujo5081/material_curso_data_science/refs/heads/main/datasets/fifa_rank.csv",
+    sep = ","  # El argumento sep no es obligatorio pero sirve para especificar el carácter con que los datos están separados en el archivo
+)
+```
+
+Una buena práctica al momento de cargar los datos es observar sus principales características a fin de establecer un plan de tratamiento acorde al dataset y su contexto. Esto resulta de vital importancia puesto que cada conjunto de datos es único y tiene sus propias particularidades. En concreto, interesa ver al menos lo siguiente:
+
+* Estructura de los datos (número de filas y columnas).
+* Nombres de las columnas.
+* Existencia de valores perdidos en cada columna.
+* Tipos de variables en cada columna.
+* Aspectos particulares de cada columna.
+
+Con este propósito, utiliza el método `info` para un primer vistazo al dataset.
+
+```{python}
+df_fifa.info()
+```
+
+El resultado obtenido brinda un detalle de la cantidad de filas y columnas del dataset, el número de valores no nulos en cada columna, y el tipo de variable asociada a ellas.
+
+::: {.callout-note title="Tipo object"}
+En algunas versiones de **Pandas** observarás que algunas columnas son de tipo *object*. Esta tipología es equivalente a los *string* que ya conocemos.
+:::
+
+Una forma más expresa de conocer las dimensiones del dataset (filas y columnas) es mediante el atributo `shape`. Aplícalo en nuestros datos.
+
+```{python}
+df_fifa.shape
+```
+
+El dataset **fifa_rank** contiene cerca de 58 mil filas y 6 columnas detalladas a continuación:
+
+| Columna            | Descripción                                                                  |
+|--------------------|------------------------------------------------------------------------------|
+| Country            | Nombre del país afiliado a la FIFA cuya selección de fútbol es puntuada.      |
+| Confederation      | Confederación a la que pertenece de acuerdo a la división de la FIFA.         |
+| Rank_Date          | Fecha de publicación del ranking FIFA entre agosto de 1993 y junio de 2018.   |
+| Points_Old_Version | Puntos obtenidos conforme metodologías de cálculo anteriores al 2011.         |
+| Points_New_Version | Puntos obtenidos conforme la metodología posterior a 2011.                    |
+| rank               | Posición en el ranking oficial de la FIFA dados los puntos calculados.        |
+
+A continuación algunos aspectos detectados:
+
+* Los nombres de las columnas tienen mayúsculas y esto puede ser problemático en las siguientes etapas del proyecto puesto que complicarían de forma innecesaria la consulta de la información.
+* Existen valores perdidos en las columnas Confederation y Points_Old_Version.
+* El tipo de variable de Points_New_Version es *string* (o *object*), lo cual no hace sentido considerando que deberías ver números dada su descripción.
+* El tipo de variable de Rank_Date igualmente es *string*, lo cual tampoco hace sentido puesto que aquí deberías ver fechas. Al respecto de esto, que una fecha se encuentre en su tipología adecuada es coherente ya que usualmente va a interesar extraer sus componentes (p. ej., año, mes, días, etc.) para la etapa de análisis.
+
+Profundiza en tu conocimiento del dataset utilizando ahora el método `sample` con el argumento `n = 20`, a fin de extraer una muestra aleatoria de los datos de tamaño 20. Para que la muestra sea reproducible, añade también el argumento `random_state = 123`.
+
+```{python}
+df_fifa.sample(n = 20, random_state = 123)
+```
+
+Considera los siguientes aspectos observados:
+
+* En el caso de los valores perdidos de Points_Old_Version, destaca que los mismos parecen estar asociados a fechas en las que se utilizaban metodologías antiguas de la clasificación, lo cual hace sentido en lo referente al nombre de la columna.
+* Points_New_Version presenta casos con el texto "ND", lo cual estaría ocasionando que el tipo de variable no sea el correcto. En todo caso, sucede algo similar con lo visto en el punto anterior: estos "valores ausentes" se corresponderían a fechas donde se aplicaban metodologías anteriores.
+
+Mira más a fondo otras columnas. Por ejemplo, observa los valores posibles de Confederation usando los métodos `unique` y luego `value_counts` con el argumento `dropna = False`.
+
+```{python}
+# Observar valores de Confederation con unique
+df_fifa["Confederation"].unique()
+```
+
+```{python}
+# Observar valores de Confederation con value_counts
+df_fifa["Confederation"].value_counts(dropna = False)
+```
+
+Verifica aquellas selecciones nacionales que tienen valores perdidos en Confederation para comprender a qué asociación de fútbol corresponderían. Usa para esto el método `isna`.
+
+```{python}
+df_fifa[df_fifa["Confederation"].isna()]["Country"].unique()
+```
+
+De esta observación en particular se confirma que la confederación faltante se corresponde con la de Oceanía (OFC).
+
+Utiliza ahora el método `describe` para generar un resumen estadístico de la columna rank.
+
+```{python}
+df_fifa["rank"].describe().round(2)
+```
+
+::: {.callout-note title="El método round"}
+Dado que se están explorando los datos antes de analizarlos, a veces conviene adicionar el método `round`. De este modo se reduce el número de decimales, mejorando en consecuencia la presentación e interpretación de resultados.
+:::
+
+Notemos que en algunas mediciones se han alcanzado hasta 209 países puesto que este es su valor máximo. De hecho, vale mencionar que la FIFA actualmente reconoce a 211 países por lo que podríamos concluir que algunos países comparten una misma posición.
+
+Mantengamos esa curiosidad por conocer más de los datos. Cuenta ahora cuántos países fueron clasificados en cada una de las fechas. Ordena este conteo por fecha con el método `sort_index` y muestra únicamente los primeros y últimos resultados con los métodos `head` y `tail` respectivamente.
+
+```{python}
+# Mostrar los primeros resultados
+df_fifa["Rank_Date"].value_counts().sort_index().head()
+```
+
+```{python}
+# Mostrar los últimos resultados
+df_fifa["Rank_Date"].value_counts().sort_index().tail()
+```
+
+Comprueba finalmente si existen casos duplicados en el dataset. Considerando que existe una gran cantidad de registros (aproximadamente 58 mil filas), sería muy poco práctico hacer una comprobación manual, por tanto utiliza los métodos `duplicated` y `sum`.
+
+```{python}
+print(df_fifa.duplicated().sum())
+```
+
+Mira en mayor detalle estos duplicados para saber a qué países se refieren.
+
+```{python}
+df_fifa[df_fifa.duplicated()]["Country"].value_counts()
+```
+
+Gran parte de estos duplicados corresponden a calificaciones asociadas a la selección de Sudán. En general, los valores duplicados pueden considerarse errores en el registro de información y nos interesa eliminar estos casos a fin de evitar distorsiones en los futuros resultados del análisis.
+
+A partir de todo este entendimiento de los datos, establece un plan de acción para procesar esta información de modo que la tabla final resultante esté lista para cualquier análisis que desees hacer.
+
+::: {.callout-tip title="Plan de acción para preparación de datos"}
+| Problema detectado | Acción planificada |
+|--------------------|--------------------|
+| Los nombres de las columnas no están bien presentados, en concreto rank está en minúsculas y el resto no. | Estandarizar a un mismo formato que siga el esquema *snake_case* (minúsculas y con espacios representados por "_"). |
+| La columna Confederation presenta valores ausentes. | Imputar el valor "OFC" debido a que se identificó que estos son los países a los que corresponden dichos errores en la información. |
+| La columna Points_New_Version presenta casos "ND" que se corresponden con valores ausentes. | Cambiar "ND" por valores ausentes reconocibles por Python. |
+| La columna Points_New_Version es de tipo *string*. | Cambiar la columna al tipo de variable flotante (*float*) que responde más a su naturaleza de valores numéricos. |
+| Las columnas Points_Old_Version y Points_New_Version presentan valores ausentes. | Crear una nueva columna que consolide la información de ambas columnas y que por tanto ya no tenga casos ausentes por cambios metodológicos. |
+| La columna Rank_Date es de tipo *string*. | Cambiar la columna al tipo fecha (*datetime*). |
+| El análisis dado el contexto es a nivel mensual pero no se cuenta con este detalle. | Generar columnas adicionales de años y meses. |
+| Existen 41 filas duplicadas que son errores en el dataset. | Eliminar estos registros para no afectar los resultados de futuros análisis. |
+:::
+
+## Preparación de los datos
+
+Utilizando nuestro plan de acción, procedamos a dejar listo este dataset para los análisis futuros que vamos a desarrollar. Entonces, en primer lugar ajusta los nombres de las columnas para que estén en formato *snake_case*. Recuerda que este formato exige que todos los nombres se encuentren en minúsculas y los espacios se sustituyan por "_".
+
+```{python}
+nombres_sc = []
+
+for col in df_fifa.columns:
+    nombres_sc.append(col.lower().replace(" ", "_"))
+
+df_fifa.columns = nombres_sc
+df_fifa.columns
+```
+
+::: {.callout-tip title="Python Comprehension"}
+Otra forma más eficiente para hacer esto es mediante la sintaxis llamada *Python Comprehension* que dejaría todo el código anterior así:
+
+```python
+df_fifa.columns = [col.lower().replace(" ", "_") for col in df_fifa.columns]
+```
+:::
+
+Como siguiente paso, imputa el valor "OFC" a los casos ausentes de la columna confederation. Utiliza para esto el método `fillna`.
+
+```{python}
+df_fifa["confederation"] = df_fifa["confederation"].fillna("OFC")
+df_fifa["confederation"].value_counts(dropna = False)
+```
+
+Ajusta ahora la columna points_new_version realizando los siguientes pasos:
+
+1. Cambia los valores perdidos "ND" por un valor perdido comprensible por **Python**. Usa para esto `np.nan`.
+2. Cambia el tipo de esta variable a flotante utilizando el método `astype`.
+
+```{python}
+# Cambiar valores perdidos ND por NaN
+df_fifa.loc[df_fifa["points_new_version"] == "ND", "points_new_version"] = np.nan
+df_fifa.info()
+```
+
+```{python}
+# Cambiar tipo de variable de points_new_version
+df_fifa["points_new_version"] = df_fifa["points_new_version"].astype(float)
+df_fifa.info()
+```
+
+::: {.callout-note title="El orden de los pasos importa"}
+Se podría pensar en cambiar el tipo de variable de esta columna antes de corregir los valores perdidos "ND", esto es, invertir los dos pasos previos. Sin embargo, al hacerlo se generaría un error puesto que el método `astype` no tendría manera de transformar los mencionados valores "ND" a números.
+:::
+
+Consolida las columnas points_old_version y points_new_version en una nueva columna llamada *points*, de forma que ya no existan valores ausentes por los cambios metodológicos.
+
+```{python}
+df_fifa.loc[df_fifa["points_old_version"].isna(), "points"] = df_fifa["points_new_version"]
+df_fifa.loc[df_fifa["points_new_version"].isna(), "points"] = df_fifa["points_old_version"]
+df_fifa.info()
+```
+
+Para evitar confusiones posteriores, elimina las columnas points_old_version y points_new_version. Utiliza el método `drop`.
+
+```{python}
+df_fifa = df_fifa.drop(columns = ["points_old_version", "points_new_version"])
+df_fifa.info()
+```
+
+Transforma la columna rank_date a tipo fecha (*datetime*) aplicando la función `pd.to_datetime`.
+
+```{python}
+df_fifa["rank_date"] = pd.to_datetime(df_fifa["rank_date"])
+df_fifa.info()
+```
+
+Ahora que esta columna ya es una fecha, es posible extraer sus componentes fundamentales. En este sentido, crea una columna *year* y otra *month* que contenga la información correspondiente. Para esto utiliza los atributos `dt.year` y `dt.month` de la columna rank_date según corresponda.
+
+```{python}
+# Crear columna year
+df_fifa["year"] = df_fifa["rank_date"].dt.year
+
+# Crear columna month
+df_fifa["month"] = df_fifa["rank_date"].dt.month
+df_fifa.info()
+```
+
+::: {.callout-note title="Año y mes no son fechas"}
+Existe una creencia errónea de que variables como year o month son también de tipo fecha puesto que representan un momento del tiempo. El error radica en que mientras year y month solamente son números enteros, una fecha posee integrados componentes de año, mes, semana, día, horas, minutos y segundos que pueden ser extraídos tal y como ya lo hicimos.
+:::
+
+Adicionalmente, y si bien no está en el plan de acción, podría ser útil especificar en una columna nueva la metodología utilizada para el cálculo de puntos de la FIFA. Crea por tanto la columna *method* la cual cumpla con los siguientes criterios secuenciales:
+
+* Si el año y mes de la fila es menor a enero de 1999, entonces su valor será "1993-1998".
+* Si el año y mes de la fila es menor a agosto de 2006, entonces su valor será "1999-2006".
+* Si el año y mes de la fila es menor a agosto de 2011, entonces su valor será "2006-2011".
+* Todos los demás casos deberían tener el valor "2011-2018".
+
+```{python}
+# Crear columna method
+df_fifa["method"] = ""
+
+# Generar un bucle para recorrer todas las filas del dataset
+for i in range(df_fifa.shape[0]):
+
+    periodomes = df_fifa.loc[i, "year"] * 100 + df_fifa.loc[i, "month"]
+
+    if periodomes < 199901:
+        df_fifa.loc[i, "method"] = "1993-1998"
+    elif periodomes < 200608:
+        df_fifa.loc[i, "method"] = "1999-2006"
+    elif periodomes < 201108:
+        df_fifa.loc[i, "method"] = "2006-2011"
+    else:
+        df_fifa.loc[i, "method"] = "2011-2018"
+
+df_fifa["method"].value_counts().sort_index()
+```
+
+::: {.callout-note title="Eficiencia de los bucles"}
+Seguramente notaste que la ejecución del programa anterior tardó unos segundos. Lo anterior se explica porque el uso de bucles para estos casos es un tanto ineficiente dado que se tienen que recorrer todas las filas del dataset. Una mejor manera para realizar esto es mediante métodos existentes en Pandas como `apply` o `map`, los cuales te sugiero investigar.
+:::
+
+Finalmente, da tratamiento a los duplicados eliminándolos con el método `drop_duplicates`. Dado que vamos a borrar filas del dataset, es conveniente también usar el método `reset_index` con el argumento `drop = True` a fin de reorganizar la estructura de la tabla.
+
+```{python}
+df_fifa = df_fifa.drop_duplicates().reset_index(drop = True)
+print(df_fifa.duplicated().sum())
+```
+
+Listo, hemos concluido con nuestro plan de acción. Dale una mirada nuevamente al dataframe limpio extrayendo una muestra de 15 elementos.
+
+```{python}
+df_fifa.sample(15, random_state = 123)
+```
+
+## Análisis de datos
+
+Es el momento de que realices tu primer análisis de datos con la tabla y su información limpia, y como punto de partida, es importante que tengas siempre en cuenta lo siguiente para un correcto análisis de datos:
+
+* Su propósito es **responder preguntas de negocio**, por lo que siempre debes buscar dar soluciones concretas en base a tus resultados.
+* No se limita a realizar gráficos o tablas resumen, sino a generar **conclusiones** que aporten valor a partir de estas visualizaciones.
+* Una buena conclusión no es una descripción de los resultados, sino una implicancia valiosa a partir de ellos.
+* Se debe mantener un **hilo de ideas** conductor, lo cual implica orden y consistencia entre los resultados.
+
+Visto esto, a continuación verás algunas preguntas de negocio a responder:
+
+### ¿Cómo ha sido el comportamiento anual del puntaje de la CONMEBOL a partir de la última metodología?
+
+Dado que este es tu primer análisis, lee detenidamente la pregunta realizada y a partir de ella identifica entre las columnas del dataset cuál es la métrica relevante que debes obtener. A continuación, especifica si debes realizar filtros en la tabla a partir de algunas condiciones aplicables a otras columnas; y para terminar, indica si debes agregar o resumir los datos por alguna de las columnas.
+
+| Aspecto    | Definición                                                                                                                  |
+|------------|-----------------------------------------------------------------------------------------------------------------------------|
+| Métrica    | Considerar la columna points para obtener el puntaje promedio.                                                              |
+| Filtros    | Filtrar la columna confederation manteniendo únicamente a "CONMEBOL", además filtrar la columna method manteniendo solamente "2011-2018". |
+| Agregación | Agrupar los datos por los valores de la columna year.                                                                       |
+
+Construye el código necesario para responder la pregunta utilizando como referencia los aspectos definidos antes.
+
+```{python}
+puntos_ec = (
+    df_fifa
+    # Filtrar datos
+    .query("confederation == 'CONMEBOL' and method == '2011-2018'")
+    # Agrupar datos
+    .groupby("year")
+    # Métrica a utilizar
+    ["points"].mean()
+)
+puntos_ec.round(2)  # El método round permite visualizar el resultado sin excesivos decimales
+```
+
+Genera dos conclusiones relevantes. Recuerda que una conclusión no se limita a una descripción de lo que obtuviste, sino a implicancias, hipótesis o recomendaciones a partir de estos resultados que aporten valor a la toma de decisiones.
+
+::: {.callout-tip title="Conclusiones"}
+| # | Conclusión |
+|---|------------|
+| 1 | Se observa un crecimiento sostenido en el puntaje de las selecciones de CONMEBOL durante este periodo, lo cual está asociado al mejoramiento de selecciones no tan protagonistas históricamente como son Chile y Ecuador. En concreto, esto se confirma con las Copas América ganadas por Chile en los años 2015 y 2016, así como con los éxitos de clubes ecuatorianos a nivel internacional como IDV y LDU, los cuales son la base actual del seleccionado nacional. |
+| 2 | A pesar de esto, en el último año estudiado se evidencia una reducción significativa en el puntaje medio de CONMEBOL, explicado seguramente por los malos resultados de varias selecciones de esta confederación previo al mundial de Rusia de 2018: Argentina perdió dos partidos importantes en su etapa preparatoria (2 - 4 versus Nigeria y 1 - 6 versus España); Colombia perdió un partido preparatorio con Corea del Sur por (1 - 2) y empató otro contra Australia (0 - 0); Chile y Ecuador quedaron eliminadas en la fase clasificatoria a pesar de estar bien posicionadas y en constante crecimiento los últimos años. Bolivia recibió sanciones por parte de la FIFA producto de asuntos administrativos en su ente federativo nacional. |
+:::
+
+### ¿Cuál ha sido la confederación peor evaluada en los últimos 3 años registrados?
+
+Establece cuál es la métrica de análisis, los filtros y agrupamientos que necesitas y da una respuesta a la pregunta con tu código.
+
+| Aspecto    | Definición                                                                                              |
+|------------|---------------------------------------------------------------------------------------------------------|
+| Métrica    | Considerar la columna points para obtener el puntaje promedio.                                          |
+| Filtros    | Filtrar la columna year con valores mayores o iguales a 2016 (últimos 3 años de información).           |
+| Agregación | Agrupar los datos por los valores de las columnas year y confederation.                                 |
+
+```{python}
+puntos_x_conf = (
+    df_fifa
+    .query("year >= 2016")
+    .pivot_table(
+        columns = "year",
+        index = "confederation",
+        values = "points",
+        aggfunc = "mean"
+    )
+)
+puntos_x_conf.round(2)
+```
+
+Genera una conclusión relevante.
+
+::: {.callout-tip title="Conclusiones"}
+| # | Conclusión |
+|---|------------|
+| 1 | OFC tiene el peor posicionamiento entre las confederaciones lo cual se explicaría por el bajo nivel de fútbol competitivo y profesional que existe en los países de Oceanía. Esto se acrecentó incluso más el año 2006 en el que Australia se afilió a la AFC para mantener un mayor nivel en sus enfrentamientos deportivos, dejando únicamente a Nueva Zelanda como país de referencia en cuanto a calidad deportiva. |
+:::
+
+::: {.callout-note title="Tablas dinámicas en Excel y Google Sheets"}
+Si alguna vez has tenido la oportunidad de trabajar con tablas dinámicas (pivote) en **MS Excel** o **Google Sheets**, notarás que el proceso de selección de métricas, filtrado y agrupamiento que hicimos para responder las preguntas de negocio previas es bastante similar al funcionamiento de estas herramientas. En este sentido, si en alguna ocasión te encuentras con dificultades para realizar un análisis, puede ser de utilidad llevar la información a una tabla dinámica y organizarla allí antes de escribir tu código.
+:::
+
+## Ejercicios de práctica
+
+A continuación encontrarás ejercicios adicionales para practicar los fundamentos de manipulación de datos con **Pandas** y fortalecer tus habilidades técnicas en funciones y métodos de esta librería. En concreto revisarás los siguientes temas:
+
+* Carga y entendimiento de datos.
+* Tratamiento de valores ausentes.
+* Tratamiento de duplicados.
+* Filtrado por indexación.
+* Filtrado por consulta.
+* Agrupamiento de datos.
+
+Intenta resolver cada ejercicio por tu cuenta antes de desplegar la solución.
+
+### Carga y entendimiento de datos
+
+#### Ejercicio 1
+
+Importa la librería **Pandas** y carga el dataset [**autos_ws.csv**](https://raw.githubusercontent.com/jsaraujo5081/material_curso_data_science/refs/heads/main/datasets/autos_ws.csv) con la función `read_csv`.
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+# Cargar librería
+import pandas as pd
+
+# Cargar datos
+df = pd.read_csv("https://raw.githubusercontent.com/jsaraujo5081/material_curso_data_science/refs/heads/main/datasets/autos_ws.csv")
+```
+:::
+
+#### Ejercicio 2
+
+Muestra la información de la estructura y las características generales del dataset con el método `info`.
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+df.info()
+```
+:::
+
+Imprime una muestra aleatoria de 10 elementos del dataset con el método `sample`.
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+df.sample(10, random_state = 123)
+```
+:::
+
+#### Ejercicio 3
+
+Verifica los valores únicos existentes en las columnas VehicleType y Gearbox.
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+# Verificar valores únicos de VehicleType
+df["VehicleType"].unique()
+```
+
+```{python}
+# Verificar valores únicos de Gearbox
+df["Gearbox"].unique()
+```
+:::
+
+### Tratamiento de valores ausentes
+
+#### Ejercicio 1
+
+Haz un conteo de los valores ausentes que existen en cada una de las columnas del dataset. Utiliza el método `isna` o `isnull`.
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+df.isna().sum()
+```
+:::
+
+#### Ejercicio 2
+
+Imputa en los valores ausentes de la columna VehicleType el valor modal. Al respecto, este indicador puede obtenerse mediante el método `mode`.
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+moda = df["VehicleType"].mode()[0]
+df["VehicleType"] = df["VehicleType"].fillna(moda)
+df.isna().sum()
+```
+:::
+
+#### Ejercicio 3
+
+Imputa en los valores ausentes del resto de columnas la expresión "not defined".
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+df = df.fillna("not defined")
+df.isna().sum()
+```
+:::
+
+### Tratamiento de duplicados
+
+#### Ejercicio 1
+
+Identifica si existen filas duplicadas en el dataset mediante el método `duplicated`.
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+print(df.duplicated().sum())
+```
+:::
+
+Muestra las filas del dataset que están duplicadas.
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+df[df.duplicated()]
+```
+:::
+
+#### Ejercicio 2
+
+Elimina los valores duplicados existentes con el método `drop_duplicates`. Recuerda resetear los índices luego de esta eliminación con el método `reset_index(drop = True)`.
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+df = df.drop_duplicates().reset_index(drop = True)
+print(df.duplicated().sum())
+```
+:::
+
+### Filtrado por indexación
+
+#### Ejercicio 1
+
+Filtra las primeras 7 filas del dataset usando el indexador `iloc`.
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+df.iloc[:7]
+```
+:::
+
+Filtra las filas 100 a 105 y las columnas 2 a 5 usando nuevamente `iloc`.
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+df.iloc[100:106, 2:6]
+```
+:::
+
+#### Ejercicio 2
+
+Filtra las últimas 10 filas de las columnas Price, Brand y Power por indexación de etiquetas usando el indexador `loc`.
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+df.loc[(df.shape[0] - 10):, ["Price", "Brand", "Power"]]
+```
+:::
+
+::: {.callout-note title="loc vs. iloc"}
+Recuerda siempre que si deseas filtrar por indexación en base a las **posiciones** de filas y columnas, debes utilizar `iloc`. Si por el contrario tu filtrado requiere de especificar las **denominaciones** de estas filas y columnas, el indexador a usar será `loc`.
+:::
+
+### Filtrado por consulta
+
+#### Ejercicio 1
+
+Filtra todos los vehículos con un precio superior a 10,100 pero inferior a 10,200 usando el método `query`.
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+df.query("Price > 10100 and Price < 10200")
+```
+:::
+
+#### Ejercicio 2
+
+Filtra todos los vehículos de las marcas "volkswagen" o "skoda" y con potencia mayor o igual a 1,600. Para ello usa *enmascaramiento*.
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+df[(df["Brand"].isin(["volkswagen", "skoda"])) & (df["Power"] >= 1600)]
+```
+:::
+
+### Agrupamiento de datos
+
+#### Ejercicio 1
+
+Muestra el precio promedio, máximo y mínimo para cada tipo de vehículo usando `groupby`.
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+(
+    df
+    .groupby("VehicleType")
+    .agg(
+        mean = ("Price", "mean"),
+        max = ("Price", "max"),
+        min = ("Price", "min")
+    )
+)
+```
+:::
+
+::: {.callout-note title="Alternativa con describe"}
+Otra manera de hacer esto es mediante el uso del método `describe`, tal y como se indica a continuación:
+
+```python
+(
+    df
+    .groupby("VehicleType")
+    ["Price"].describe()
+    [["mean", "max", "min"]]
+)
+```
+:::
+
+#### Ejercicio 2
+
+Muestra en una sola tabla resumen el precio promedio, el kilometraje mediano y la cantidad de modelos por marca.
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+(
+    df
+    .groupby("Brand")
+    .agg(
+        precio_prom = ("Price", "mean"),
+        km_med = ("Kilometer", "median"),
+        modelos_q = ("Model", "nunique")
+    )
+)
+```
+:::
+
+#### Ejercicio 3
+
+El sesgo $S$ es una propiedad adicional de una variable que mide la simetría existente en los datos con respecto a su valor medio. Una forma de calcular este indicador es mediante la fórmula:
+
+$$ S = \frac{3(\bar x - m)}{\sigma} $$
+
+donde $\bar x$ es la media aritmética, $m$ es la mediana y $\sigma$ es la desviación estándar.
+
+Crea una función que tome una columna cualquiera del dataset y calcule el sesgo correspondiente. Utiliza los métodos `mean`, `median` y `std` para calcular sus componentes.
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+def sesgo(col):
+    return 3 * (col.mean() - col.median()) / col.std()
+```
+:::
+
+Utiliza esta función para saber el promedio y el sesgo de la variable Price agregado por la columna FuelType.
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+(
+    df
+    .groupby("FuelType")
+    .agg(
+        promedio = ("Price", "mean"),
+        sesgo = ("Price", sesgo)
+    )
+)
+```
+:::

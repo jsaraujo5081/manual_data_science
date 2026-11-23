@@ -1,0 +1,9 @@
+# Versiones con las que se verificó el libro (Python 3.12)
+jupyter
+pandas==3.0.6
+numpy==2.5.4
+matplotlib==3.11.2
+scipy==1.18.1
+statsmodels
+openpyxl==3.1.5
+jinja2

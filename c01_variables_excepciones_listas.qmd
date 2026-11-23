@@ -1,0 +1,1083 @@
+---
+title: "Capítulo 1. Variables, Excepciones y Listas"
+subtitle: "I. Fundamentos de Programación con Python"
+jupyter: python3
+---
+
+En los siguientes ejercicios se propone una introducción práctica a los fundamentos de programación utilizando el lenguaje **Python**, uno de los entornos más utilizados actualmente en áreas como ciencia de datos, automatización de procesos, desarrollo de software y análisis computacional. El propósito principal de estas actividades es fortalecer la comprensión de conceptos esenciales de programación mediante la resolución de problemas sencillos y progresivos, promoviendo además el desarrollo del pensamiento lógico y estructurado.
+
+A lo largo de los ejercicios, tendrás la oportunidad de familiarizarte con la sintaxis básica del lenguaje y con algunos de los elementos fundamentales que constituyen la base de cualquier programa desarrollado en este entorno. En particular, se trabajará en la comprensión y aplicación de los siguientes conceptos:
+
+* Manejo de variables y almacenamiento de información.
+* Gestión de errores y control de excepciones.
+* Manipulación y procesamiento de cadenas de texto.
+* Creación, acceso y modificación de listas.
+
+El dominio de estos temas constituye una etapa inicial indispensable dentro del aprendizaje de la programación, ya que permite comprender cómo representar información, procesarla y controlar el comportamiento de un programa frente a diferentes escenarios. De igual manera, estas actividades buscan fomentar buenas prácticas de escritura de código, claridad en la lógica de solución y capacidad de análisis computacional, habilidades fundamentales para tu estudio posterior de ciencia de datos.
+
+## Requerimientos tecnológicos
+
+En vista de que estás en una etapa inicial de aprendizaje, no es necesario que instales aún nada en tu computadora. Puedes trabajar este (y los siguientes capítulos de fundamentos) con herramientas online.
+
+En este sentido, te sugiero el uso de **[Google Colab](https://colab.research.google.com/)**, para el cual únicamente necesitas contar con una cuenta de Google activa. Cuando ingreses, da clic en "Cuaderno nuevo" para que se cree un nuevo archivo de trabajo.
+
+## Manejo de variables y almacenamiento de información
+
+Las variables constituyen uno de los elementos más importantes dentro de la programación, ya que permiten almacenar y manipular información durante la ejecución de un programa. A través de ellas es posible representar datos numéricos, textos, valores lógicos y otros tipos de información necesarios para resolver problemas computacionales. En **Python**, las variables se caracterizan por su flexibilidad y facilidad de uso, permitiéndonos asignar valores de manera dinámica y reutilizarlos posteriormente en operaciones, cálculos y procesos lógicos.
+
+### Ejercicio 1
+
+John tiene 25 años y su hermano 20. Asigna sus edades a las variables `john_age` y `brother_age`. Para ello, considera que a una variable se le asigna un valor mediante `=`.
+
+```{python}
+john_age = 25
+brother_age = 20
+```
+
+Ahora imprime en pantalla estas variables con la función `print`.
+
+```{python}
+# Imprimir variables con la función print
+print(john_age)
+print(brother_age)
+```
+
+Calcula la diferencia de edades en una nueva variable llamada `diff_ages`.
+
+```{python}
+diff_ages = john_age - brother_age
+```
+
+Calcula el promedio (media aritmética) de edades en una nueva variable llamada `prom_ages`.
+
+```{python}
+prom_ages = (john_age + brother_age) / 2
+```
+
+Muestra en pantalla la siguiente frase:
+
+> John tiene `john_age` años y su hermano tiene `brother_age`. La diferencia de edad entre ellos es `diff_ages` y su promedio es `prom_ages`.
+
+Prueba imprimir esto con al menos una de las siguientes formas:
+
+* Secuencia de variables.
+* *f-string*.
+* *format string*.
+
+```{python}
+# Imprimir mediante secuencias de variables
+print("John tiene ", john_age, " años y su hermano tiene ", brother_age, ". La diferencia de edad entre ellos es ", diff_ages, " y su promedio es ", prom_ages, ".", sep = "")
+```
+
+```{python}
+# Imprimir mediante f-string
+print(f"John tiene {john_age} años y su hermano tiene {brother_age}. La diferencia de edad entre ellos es {diff_ages} y su promedio es {prom_ages}.")
+```
+
+```{python}
+# Imprimir mediante format strings
+print("John tiene {} años y su hermano tiene {}. La diferencia de edad entre ellos es {} y su promedio es {}.".format(john_age, brother_age, diff_ages, prom_ages))
+```
+
+::: {.callout-tip title="¿Qué forma usar?"}
+*f-string* es la forma más recomendada para imprimir mensajes que contienen variables debido a su sintaxis concisa y directa. Además, como veremos más adelante, con *f-strings* es factible dar formato a variables de tipo numérico de manera sencilla.
+:::
+
+### Ejercicio 2
+
+Escribe y rellena las siguientes variables con los nombres y valores establecidos a continuación:
+
+| Nombre                | Valor  |
+|-----------------------|--------|
+| `name`                | "John" |
+| `john_bitcoins`       | 2.45   |
+| `btc_to_usd`          | 71000  |
+| `has_driving_license` | True   |
+
+```{python}
+name = "John"
+john_bitcoins = 2.45
+btc_to_usd = 71000
+has_driving_license = True
+```
+
+Aplica la función `type` a cada una de estas variables para mostrar el tipo al que se corresponden.
+
+```{python}
+type(name)
+```
+
+```{python}
+type(john_bitcoins)
+```
+
+```{python}
+type(btc_to_usd)
+```
+
+```{python}
+type(has_driving_license)
+```
+
+Cada una de estas variables representa un tipo diferente:
+
+* `name` es de tipo *string*, o lo que es lo mismo, una cadena de texto. En general, el valor de estas variables se coloca entre comillas (dobles o simples).
+* `john_bitcoins` es de tipo *float*, esto es, un número que SÍ permite decimales.
+* `btc_to_usd` es de tipo *integer*, un número que NO permite decimales.
+* `has_driving_license` es de tipo *boolean*, que permite dos posibles valores (`True`/`False`).
+
+::: {.callout-note title="Otros tipos de objetos"}
+Debes saber que en **Python** existen otras tipologías importantes de objetos que iremos conociendo a medida que avancemos en el aprendizaje de esta herramienta. Solamente por mencionar algunas: listas, diccionarios, dataframes y fechas.
+:::
+
+A partir de lo que estas variables representan, calcula e imprime la cantidad de bitcoins (BTC) que John mantiene en dólares estadounidenses. Te sugiero que en la impresión utilices *f-string* e incluyas especificación de formato (*format-spec*) para el valor numérico calculado.
+
+```{python}
+# Calcular cuántos bitcoins se mantienen en dólares
+john_usd_worth = john_bitcoins * btc_to_usd
+
+# Imprimir resultado con f-string y format-spec
+print(f"{john_usd_worth:,.0f} USD")
+```
+
+::: {.callout-note title="Especificación de formato"}
+Si quieres conocer más sobre la especificación de formato en **Python**, puedes consultar [esta documentación](https://docs.python.org/3/library/string.html#grammar-token-format-spec-format_spec) o buscar en internet tutoriales sobre el *Format Specification Mini-Language*.
+:::
+
+### Ejercicio 3
+
+John compró 1.3 bitcoins adicionales. En el siguiente código se intenta reflejar este hecho. Ejecútalo, y observa e interpreta la línea final del error resultante.
+
+```{python}
+#| error: true
+john_bitcoins = "2.45"
+john_bitcoins = john_bitcoins + 1.3
+print(f"{john_bitcoins:.2f} BTC")
+```
+
+`TypeError` es la denominación que **Python** da a los errores asociados al **tipo de variable**, y lo que aquí se nos indica es que no es posible concatenar (sumar) valores flotantes con cadenas de texto. En la siguiente sección vamos a profundizar más en los errores y en cómo gestionarlos.
+
+Visto esto, ajusta el código existente añadiendo una nueva línea en la que se convierta la variable `john_bitcoins` a flotante con la función `float`.
+
+```{python}
+john_bitcoins = "2.45"
+john_bitcoins = float(john_bitcoins)
+john_bitcoins = john_bitcoins + 1.3
+print(f"{john_bitcoins:.2f} BTC")
+```
+
+Ahora convierte los bitcoins de John a entero con la función `int`, guarda este resultado en una nueva variable e imprímelo.
+
+```{python}
+john_bitcoins_int = int(john_bitcoins)
+print(f"{john_bitcoins_int:.2f} BTC")
+```
+
+Haz una nueva conversión, pero ahora usando la función `round`, e imprime la variable resultante.
+
+```{python}
+john_bitcoins_round = round(john_bitcoins)
+print(f"{john_bitcoins_round:.2f} BTC")
+```
+
+Como puedes evidenciar, las funciones `int` y `round` permiten aproximar un valor flotante a uno entero. Sin embargo, no funcionan exactamente igual:
+
+* La primera devuelve solamente la parte entera del valor original; es decir, trunca los decimales (con valores positivos, equivale al entero menor más cercano).
+* La segunda devuelve el entero más próximo, independientemente de si es mayor o menor que el valor original.
+
+## Gestión de errores y control de excepciones
+
+La gestión de errores corresponde al conjunto de mecanismos que permiten identificar, controlar y responder adecuadamente a situaciones inesperadas que pueden ocurrir durante la ejecución de un programa computacional. Estos errores pueden surgir por entradas inválidas, operaciones no permitidas o fallos en la lógica implementada. En programación, resulta fundamental anticipar este tipo de situaciones para evitar interrupciones inesperadas y mejorar la robustez de los análisis, facilitando así la creación de programas más seguros, comprensibles y estables.
+
+### Ejercicio 1
+
+Ejecuta el siguiente código. Mira el error que se genera e interprétalo.
+
+```{python}
+#| error: true
+nombre = "Aleph"
+activos = 2000
+pasivos = 2000
+patrimonio = activos - pasivos
+razon_end = pasivos / patrimonio
+print("El patrimonio de", nombre, "es de", patrimonio, "USD, y su razón de endeudamiento es de", razon_end)
+```
+
+`ZeroDivisionError` hace referencia a que en el código existe una operación con divisor igual a 0, lo cual **Python** no es capaz de procesar.
+
+Incorpora el código dentro de una estructura `try-except` a fin de que se despliegue el siguiente mensaje de error controlado: *Existe algún error*.
+
+```{python}
+try:
+    nombre = "Aleph"
+    activos = 2000
+    pasivos = 2000
+    patrimonio = activos - pasivos
+    razon_end = pasivos / patrimonio
+    print("El patrimonio de", nombre, "es de", patrimonio, "USD, y su razón de endeudamiento es de", razon_end)
+except:
+    print("Existe algún error")
+```
+
+Modifica el código anterior de forma que se identifique adecuadamente el error existente en la estructura `try-except`, y el mensaje generado sea acorde.
+
+```{python}
+try:
+    nombre = "Aleph"
+    activos = 2000
+    pasivos = 2000
+    patrimonio = activos - pasivos
+    razon_end = pasivos / patrimonio
+    print("El patrimonio de", nombre, "es de", patrimonio, "USD, y su razón de endeudamiento es de", razon_end)
+except ZeroDivisionError:
+    print("Error: Se está generando una división por cero en alguna parte del código")
+```
+
+Ajusta el código cambiando el valor de la variable `pasivos` a 1500 para que ya no se genere este error, y manteniendo la estructura `try-except`.
+
+```{python}
+try:
+    nombre = "Aleph"
+    activos = 2000
+    pasivos = 1500
+    patrimonio = activos - pasivos
+    razon_end = pasivos / patrimonio
+    print("El patrimonio de", nombre, "es de", patrimonio, "USD, y su razón de endeudamiento es de", razon_end)
+except ZeroDivisionError:
+    print("Error: Se está generando una división por cero en alguna parte del código")
+```
+
+### Ejercicio 2
+
+Ejecuta el siguiente código. Observa el error generado e interprétalo.
+
+```{python}
+#| error: true
+try:
+    nombre = "Aleph"
+    activos = 2000
+    pasivos = "1500"
+    patrimonio = activos - pasivos
+    razon_end = pasivos / patrimonio
+    print("El patrimonio de", nombre, "es de", patrimonio, "USD, y su razón de endeudamiento es de", razon_end)
+except ZeroDivisionError:
+    print("Error: Se está generando una división por cero en alguna parte del código")
+```
+
+Ya hemos visto antes el `TypeError`, por lo que podemos inferir que alguna de las variables definidas en el código no tiene el tipo correcto. En este caso se nos indica que no es posible restar una cadena de texto a un entero.
+
+Modifica entonces el código añadiendo otro bloque `except` en la estructura, el cual especifique este nuevo error.
+
+```{python}
+try:
+    nombre = "Aleph"
+    activos = 2000
+    pasivos = "1500"
+    patrimonio = activos - pasivos
+    razon_end = pasivos / patrimonio
+    print("El patrimonio de", nombre, "es de", patrimonio, "USD, y su razón de endeudamiento es de", razon_end)
+except ZeroDivisionError:
+    print("Error: Se está generando una división por cero en alguna parte del código")
+except TypeError:
+    print("Error: Se están utilizando variables de tipo texto en una resta")
+```
+
+Ajusta el código con la función `float` para que ya no se genere este error, y manteniendo la estructura `try-except`.
+
+```{python}
+try:
+    nombre = "Aleph"
+    activos = float(2000)
+    pasivos = float("1500")
+    patrimonio = activos - pasivos
+    razon_end = pasivos / patrimonio
+    print("El patrimonio de", nombre, "es de", patrimonio, "USD, y su razón de endeudamiento es de", razon_end)
+except ZeroDivisionError:
+    print("Error: Se está generando una división por cero en alguna parte del código")
+except TypeError:
+    print("Error: Se están utilizando variables de tipo texto en una resta")
+```
+
+### Ejercicio 3
+
+Ejecuta el siguiente código. Observa el error generado e interprétalo.
+
+```{python}
+#| error: true
+try:
+    nombre = "Aleph"
+    activos = float("2,000")
+    pasivos = float("1500")
+    patrimonio = activos - pasivos
+    razon_end = pasivos / patrimonio
+    print("El patrimonio de", nombre, "es de", patrimonio, "USD, y su razón de endeudamiento es de", razon_end)
+except ZeroDivisionError:
+    print("Error: Se está generando una división por cero en alguna parte del código")
+except TypeError:
+    print("Error: Se están utilizando variables de tipo texto en una resta")
+```
+
+`ValueError` nos indica que existe un valor que **Python** no es capaz de interpretar. En concreto, notemos que existe una coma en el valor `"2,000"` de `activos`, lo cual hace que la función `float` no sea capaz de transformarlo a flotante.
+
+Modifica el código de forma acorde añadiendo otro bloque `except` en la estructura.
+
+```{python}
+try:
+    nombre = "Aleph"
+    activos = float("2,000")
+    pasivos = float("1500")
+    patrimonio = activos - pasivos
+    razon_end = pasivos / patrimonio
+    print("El patrimonio de", nombre, "es de", patrimonio, "USD, y su razón de endeudamiento es de", razon_end)
+except ZeroDivisionError:
+    print("Error: Se está generando una división por cero en alguna parte del código")
+except TypeError:
+    print("Error: Se están utilizando variables de tipo texto en una resta")
+except ValueError:
+    print("Error: Existe un valor mal escrito")
+```
+
+Ajusta el código de cualquier forma para que ya no se genere este error, manteniendo la estructura `try-except`.
+
+```{python}
+try:
+    nombre = "Aleph"
+    activos = float("2000")
+    pasivos = float("1500")
+    patrimonio = activos - pasivos
+    razon_end = pasivos / patrimonio
+    print("El patrimonio de", nombre, "es de", patrimonio, "USD, y su razón de endeudamiento es de", razon_end)
+except ZeroDivisionError:
+    print("Error: Se está generando una división por cero en alguna parte del código")
+except TypeError:
+    print("Error: Se están utilizando variables de tipo texto en una resta")
+except ValueError:
+    print("Error: Existe un valor mal escrito")
+```
+
+::: {.callout-note title="Más tipos de errores"}
+En **Python** existen muchos otros tipos de errores. Si quieres saber más sobre todos ellos puedes consultar [esta documentación](https://docs.python.org/3/library/exceptions.html#concrete-exceptions).
+:::
+
+::: {.callout-warning title="Coma o punto decimal"}
+Podríamos estar acostumbrados a escribir números utilizando coma `,` como separador de decimales (p. ej. $3,14159\ldots$). En programación, esto es una fuente importante de errores, puesto que por defecto el símbolo reconocido como separador es el punto `.`. Vale la pena adaptarnos a esta manera de escribir valores flotantes para una ejecución eficaz de nuestros programas.
+:::
+
+## Manipulación y procesamiento de cadenas de texto
+
+Las cadenas de texto representan secuencias de caracteres utilizadas para almacenar y procesar información textual. Su manipulación es esencial en múltiples aplicaciones, como el análisis de datos, la validación de información, la automatización de procesos y la interacción con usuarios. El manejo de cadenas incluye, por consiguiente, operaciones como concatenación, búsqueda, reemplazo, extracción y transformación de texto. Gracias a las herramientas incorporadas en **Python**, es posible realizar este tipo de tareas de forma sencilla y eficiente, facilitando el procesamiento de información escrita.
+
+### Ejercicio 1
+
+John intentó enviar un mensaje a su amigo Max para decirle que le había enviado bitcoins de regalo. Al ejecutar el programa con dicho mensaje se generó un error:
+
+```{python}
+#| error: true
+message = 'Hey pal. I've sent you some bitcoins. Check your wallet!'
+print(message)
+```
+
+`SyntaxError` hace referencia a que existe algún problema *gramatical* en el código. Recordemos que **Python** es un lenguaje y, como tal, tiene reglas de escritura específicas que se deben cumplir.
+
+Identifica dónde se está generando el error y corrígelo añadiendo el carácter `\` justo antes.
+
+```{python}
+message = 'Hey pal. I\'ve sent you some bitcoins. Check your wallet!'
+print(message)
+```
+
+En efecto, el error se presentaba porque dentro del mensaje existía una comilla, la cual en el lenguaje de **Python** se interpreta como la apertura o el cierre de un valor de tipo texto. Para evitar esta confusión, añadimos `\`, lo cual notifica a **Python** que "escape" de su regla predefinida. Justamente por esta razón este tipo de expresiones se conocen como *caracteres de escape*.
+
+::: {.callout-note title="Otros caracteres de escape"}
+Si quieres saber más sobre otros caracteres de escape comunes puedes consultar [esta documentación](https://docs.python.org/3/reference/lexical_analysis.html#escape-sequences). A medida que avancemos con el aprendizaje notarás que utilizamos otros con frecuencia. Por ahora te sugiero investigar sobre lo que hacen estos dos: `\n` y `\t`.
+:::
+
+La computadora de Max solamente permite imprimir 50 caracteres. ¿Se ajusta el mensaje corregido a esta limitación? Compruébalo mediante la función `len`.
+
+```{python}
+length = len(message)
+print(f"Longitud del mensaje: {length}")
+print(f"Cumple criterio de 50 caracteres: {length <= 50}")
+```
+
+Una vez corregido y enviado el mensaje, Max respondió a John, pero la respuesta venía con los siguientes problemas:
+
+* Caracteres `#` entre todas las palabras.
+* Espacios tanto al principio como al final del mensaje.
+* Letras en mayúsculas y minúsculas de forma aleatoria.
+
+```python
+response = "  hEY#bRO,#I#nEed#YouR#hElP#bUYiNg#bTc#tONigHt!     "
+```
+
+Ayuda a John a descifrar el mensaje de respuesta utilizando los métodos `strip`, `replace` y `lower`.
+
+```{python}
+# Definir el mensaje original
+response = "  hEY#bRO,#I#nEed#YouR#hElP#bUYiNg#bTc#tONigHt!     "
+
+# Eliminar los espacios al inicio y al final del texto
+response = response.strip()
+
+# Reemplazar los "#" por espacios
+response = response.replace("#", " ")
+
+# Poner todos los caracteres en minúscula
+response = response.lower()
+
+print(response)
+```
+
+::: {.callout-note title="Funciones vs. métodos"}
+Funciones como `print` o `type` pueden aplicarse a variables de distintos tipos; sin embargo, los métodos no. Estos últimos son un tipo de funciones especiales que solamente se utilizan en tipologías específicas. Por ejemplo, `strip`, `replace` o `lower` son válidos para textos, pero NUNCA para flotantes o enteros. De esta explicación se desprende el hecho de que su sintaxis es distinta:
+
+* Funciones: `funcion(variable, argumentos)`
+* Métodos: `variable.metodo(argumentos)`
+:::
+
+::: {.callout-tip title="Pruébalo tú mismo"}
+Seguramente supones que, así como existe el método `lower` para transformar los caracteres de un texto a minúsculas, igualmente debe existir el método `upper` para convertirlo todo a mayúsculas. ¡Estás en lo correcto! De hecho, también podemos aplicar el método `capitalize` para que las frases de un texto mantengan el formato de una oración. Siéntete libre de probar estos dos casos para que te familiarices con su funcionamiento.
+:::
+
+### Ejercicio 2
+
+A John le desagrada que se refieran a él como "bro". Por esta razón, desea extraer esta parte del mensaje de respuesta para comentarle su malestar a Max. Ayúdalo con esto utilizando *indexación* y *slicing*, y guarda el resultado en la variable `bro_word`.
+
+```{python}
+# Encontrar índices de la palabra bro
+start_index = response.index("bro")
+end_index = start_index + len("bro")
+bro_word = response[start_index:end_index]
+print(bro_word)
+```
+
+Imprime el texto que John enviará a Max usando *f-string*, caracteres de escape y la variable que guardaste previamente.
+
+```{python}
+complain = f"Please stop calling me \'{bro_word}\'. I hate it!"
+print(complain)
+```
+
+Algo más que debes saber sobre John es que le encantan los secretos, y por eso ha escondido las claves de acceso a sus bitcoins en alguna parte. Para no olvidar dónde las guardó, creó un acertijo que solo los programadores de **Python** pueden descifrar. Dejó una frase escrita en un cuaderno que dice:
+
+> To my lovely wife I leave my key in the safe. Behind the statue of Dio you have a picture of us both.
+
+Después incluyó instrucciones para decodificarla:
+
+* "Recortar" es lo que más te debe gustar.
+* A la longitud le restas setenta y dos, y repites con 69. ¡Qué gran pro!
+* Lo que está entre treinta y tres y treinta y cinco es tu segundo ahínco.
+* Mira desde cuarenta y cuatro hasta treinta y ocho si eres **negativo**, para al menos ser alguien productivo.
+* Muestra todo, pero siempre de algún modo.
+
+¿Dónde están escondidas las claves?
+
+```{python}
+phrase = "To my lovely wife I leave my key in the safe. Behind the statue of Dio you have a picture of us both."
+
+# Resolver primera instrucción: usar slicing
+
+# Resolver segunda instrucción
+t1 = phrase[len(phrase) - 72:len(phrase) - 69]
+
+# Resolver tercera instrucción
+t2 = phrase[33:35]
+
+# Resolver cuarta instrucción
+t3 = phrase[-44:-38]
+
+# Resolver quinta instrucción
+print(f"{t1} {t2} {t3}")
+```
+
+Notemos que se puede indexar desde el final de un texto utilizando valores negativos. En este sentido, el valor de `-1` corresponde al último carácter, `-2` al penúltimo, y así sucesivamente.
+
+::: {.callout-important title="El conteo empieza en 0"}
+Recuerda que para indexación y *slicing* en **Python** el conteo de elementos empieza SIEMPRE en 0.
+:::
+
+## Creación, acceso y modificación de listas
+
+Las listas son estructuras de datos que permiten almacenar múltiples elementos dentro de una misma variable, manteniendo un orden específico y facilitando su acceso y modificación. Estas estructuras son ampliamente utilizadas para organizar colecciones de datos y realizar operaciones repetitivas sobre conjuntos de información. En **Python**, las listas ofrecen gran versatilidad, ya que pueden contener diferentes tipos de datos y permiten agregar, eliminar, recorrer y transformar elementos de manera dinámica. Su comprensión es fundamental para el desarrollo de algoritmos y programas más complejos, como los que realizarás más adelante en tu aprendizaje.
+
+### Ejercicio 1
+
+Max quiere saber más sobre bitcoin y le pidió a John una lista de libros para leer. Su amigo le envió información sobre el libro *The Bitcoin Whitepaper* y le dijo que le sugeriría otros títulos después. Sin embargo, la información enviada está repartida en múltiples variables, como se puede evidenciar en el siguiente código:
+
+```python
+title = "The Bitcoin Whitepaper"
+country = "USA"
+year = 2008
+genre = "cryptocurrency"
+```
+
+Max quiere mantener todos estos datos unidos en forma de lista llamada `book_info` para poder incluir después los otros libros en un mismo formato. Ayúdalo a hacerlo incorporando todas estas variables dentro de corchetes y separando los elementos por comas.
+
+```{python}
+# Definir variables de manera individual
+title = "The Bitcoin Whitepaper"
+country = "USA"
+year = 2008
+genre = "cryptocurrency"
+
+# Crear lista con información del libro
+book_info = [title, country, year, genre]
+print(book_info)
+```
+
+Imprime un *slice* de la lista creada que solamente contenga el nombre del país, el año y el género.
+
+```{python}
+print(book_info[1:4])
+```
+
+Imprime un *slice* de la lista creada que solamente contenga el nombre, el país y el año.
+
+```{python}
+print(book_info[0:3])
+```
+
+::: {.callout-tip title="Slicing abreviado"}
+En **Python** se permite simplificar el *slicing* cuando uno de los índices se corresponde con el primer o el último elemento de una lista. En este sentido, el código anterior podría igualmente escribirse sin especificar el valor de 0 (primer elemento):
+
+```python
+book_info[:3]
+```
+:::
+
+Imprime un *slice* de la lista creada que solamente contenga el nombre y el año.
+
+```{python}
+print(book_info[0:3:2])
+```
+
+En este *slicing* se ha incorporado un tercer índice (2). El mismo corresponde al salto que se requiere entre los elementos de la lista.
+
+### Ejercicio 2
+
+John envió a Max una lista adicional de buenos libros sobre bitcoin. Es un buen amigo, así que estructuró esta información a modo de lista de **Python** e incluso añadió los autores al final de cada sublista.
+
+```python
+books_all = [
+    ["Mastering Bitcoin", "USA", 2014, "technology", "M. Antonopoulos"],
+    ["The Age of Cryptocurrency", "USA", 2015, "economics", "P. Vigna, J. Casey"],
+    ["Digital Gold", "USA", 2015, "finance", "N. Popper"],
+    ["The Bitcoin Standard", "USA", 2018, "cryptocurrency", "S. Ammous"],
+    ["Bitcoin Billionaires", "USA", 2019, "biography", "B. Mezrich"]
+]
+```
+
+Pero Max notó que hay un libro con más de un autor, y quiere dividir estos autores para almacenarlos por separado en forma de lista. Busca entonces el libro con más de un autor, extráelo utilizando indexación, divide los nombres de los autores en una nueva lista con el método `split` e imprime el resultado.
+
+```{python}
+# Definir lista original de libros
+books_all = [
+    ["Mastering Bitcoin", "USA", 2014, "technology", "M. Antonopoulos"],
+    ["The Age of Cryptocurrency", "USA", 2015, "economics", "P. Vigna, J. Casey"],
+    ["Digital Gold", "USA", 2015, "finance", "N. Popper"],
+    ["The Bitcoin Standard", "USA", 2018, "cryptocurrency", "S. Ammous"],
+    ["Bitcoin Billionaires", "USA", 2019, "biography", "B. Mezrich"]
+]
+
+# Extraer autores del libro con más de un autor
+authors = books_all[1][-1]
+
+# Dividir nombres de autores en lista
+authors_split = authors.split(", ")
+
+# Imprimir el resultado
+print(authors_split)
+```
+
+Modifica la lista original de forma que todos los autores aparezcan a modo de lista e imprime el resultado (si gustas, puedes prescindir de `print` para una mejor visualización).
+
+```{python}
+books_all[0][-1] = [books_all[0][-1]]
+books_all[1][-1] = authors_split
+books_all[2][-1] = [books_all[2][-1]]
+books_all[3][-1] = [books_all[3][-1]]
+books_all[4][-1] = [books_all[4][-1]]
+
+books_all
+```
+
+### Ejercicio 3
+
+Ahora, Max quiere añadir la información de *The Bitcoin Whitepaper* a la lista de otros libros. Pero se dio cuenta de que John no le había mencionado al autor.
+
+Añade entonces el nombre *S. Nakamoto* a la primera lista `book_info` usando el método `append` e imprímela.
+
+```{python}
+author = ["S. Nakamoto"]
+book_info.append(author)
+print(book_info)
+```
+
+Añade `book_info` al inicio de la lista de libros usando el método `insert` e imprime el resultado.
+
+```{python}
+books_all.insert(0, book_info)
+books_all
+```
+
+John envió un mensaje a Max indicando que el libro *Digital Gold* tiene información incorrecta y que no debería considerarlo. Ayúdalo quitando este libro de la lista con el método `pop`.
+
+```{python}
+books_all.pop(3)
+books_all
+```
+
+::: {.callout-tip title="Para seguir practicando"}
+Las listas son uno de los objetos de **Python** más utilizados en la construcción de programas para el análisis y la ciencia de datos. Te recomiendo familiarizarte con su generación y uso para que de esta forma se facilite tu proceso de aprendizaje. En [este enlace](https://www.w3schools.com/python/python_lists_exercises.asp) del portal **W3Schools** podrás practicar más si así lo requieres.
+:::
+
+## Ejercicios de práctica
+
+A continuación encontrarás ejercicios adicionales para reforzar los cuatro temas del capítulo. Intenta resolver cada uno por tu cuenta antes de desplegar la solución.
+
+### Variables y almacenamiento de información
+
+#### Ejercicio 1
+
+Define una variable `nombre` y asígnale el valor *DataCorp* (esta es una empresa cualquiera).
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+nombre = "DataCorp"
+```
+:::
+
+Crea una variable `ingresos` y asígnale el valor de 1,500,830 dólares.
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+ingresos = 1500830
+```
+:::
+
+Define una variable `empleados` con el número de empleados en la empresa, digamos 250.
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+empleados = 250
+```
+:::
+
+Imprime una oración que combine estas variables para que diga algo como:
+
+> La empresa `nombre` tiene un ingreso anual de `ingresos` dólares y emplea a `empleados` personas.
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+print(f"La empresa {nombre} tiene un ingreso anual de {ingresos:,.0f} dólares y emplea a {empleados:,.0f} personas.")
+```
+:::
+
+#### Ejercicio 2
+
+Define una variable `costos` con el valor de 810,144 dólares.
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+costos = 810144
+```
+:::
+
+Calcula el `beneficio` de la empresa restando los `costos` de los `ingresos`.
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+beneficio = ingresos - costos
+```
+:::
+
+Calcula el beneficio por empleado dividiendo el `beneficio` por el número de `empleados`.
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+ben_por_emp = beneficio / empleados
+```
+:::
+
+Vuelve a calcular el beneficio por empleado, solo que ahora utiliza la división entera `//`.
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+ben_por_emp2 = beneficio // empleados
+```
+:::
+
+::: {.callout-note title="División entera y módulo"}
+Formalmente, la operación de división entre dos números reales $a$ y $b$ es aquella que genera dos resultados $q$ y $r$ tales que
+
+$$ a = q \times b + r $$
+
+El valor $q$ se denomina cociente de la división y $r$ corresponde al residuo.
+
+En **Python**, cuando se calcula una división entera se obtiene el valor $q$ de la división. Por su parte, para obtener el componente $r$, el código sería:
+
+```python
+beneficio % empleados
+```
+
+Esta operación se conoce como **módulo** entre los números $a$ y $b$, y su estudio genera toda un área de las matemáticas con aplicaciones diversas, conocida como [aritmética modular](https://en.wikipedia.org/wiki/Modular_arithmetic).
+:::
+
+Compara los resultados obtenidos en los dos últimos ejercicios, imprimiéndolos en pantalla.
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+print(f"División normal: {ben_por_emp:,.2f} USD")
+print(f"División entera: {ben_por_emp2:,.2f} USD")
+```
+:::
+
+Imprime los resultados del beneficio de la empresa y el beneficio por empleado (cualquiera de los dos antes calculados), asegurándote de que se evidencie claramente cada valor dentro de un texto.
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+print(f"La empresa {nombre} tiene un beneficio de {beneficio:,.0f} dólares y cada empleado genera {ben_por_emp:,.0f} dólares aproximadamente.")
+```
+:::
+
+#### Ejercicio 3
+
+Define una variable `tasa` y asígnale el valor 0.05, que representa un 5% de crecimiento anual en los `ingresos` de la empresa.
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+tasa = 0.05
+```
+:::
+
+Convierte esta `tasa` a un porcentaje multiplicando su valor por 100 y asígnalo a una nueva variable `tasa_pct`.
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+tasa_pct = tasa * 100
+```
+:::
+
+Asumiendo que los `costos` se incrementarán en solamente 4% y que el número de `empleados` se mantendrá el siguiente año, ¿cuál será el nuevo beneficio por empleado dada dicha tasa de crecimiento? Imprime el resultado.
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+ingresos_new = ingresos * (1 + tasa)
+costos_new = costos * (1 + 0.04)
+beneficios_new = ingresos_new - costos_new
+ben_por_emp_new = beneficios_new / empleados
+print(f"{ben_por_emp_new:,.2f} USD")
+```
+:::
+
+¿El beneficio por empleado crece a la misma tasa que los ingresos de la empresa? Calcula el incremento porcentual en el beneficio por empleado y presenta tu resultado en un texto adecuado.
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+tasa_ben = ben_por_emp_new / ben_por_emp - 1
+print(f"Los ingresos crecen en {tasa:.1%}, mientras que el beneficio por empleado crece en {tasa_ben:.1%}")
+```
+:::
+
+### Gestión de errores y control básico de excepciones
+
+#### Ejercicio 1
+
+Ejecuta el siguiente código e identifica los errores.
+
+```{python}
+#| error: true
+nombre_empresa = "DataCorp
+ingresos_anuales = 1500000
+print("La empresa " + nombre_empresa + " generó " + ingresos_anuales + " USD en ingresos.")
+```
+
+Corrige todos los errores que existan en el código para que el mismo funcione, e incorpora comentarios que especifiquen las correcciones realizadas.
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+nombre_empresa = "DataCorp"  # Cerrar comillas
+ingresos_anuales = 1500000
+print("La empresa " + nombre_empresa + " generó " + str(ingresos_anuales) + " USD en ingresos.")  # Aplicar la función str a la variable numérica
+```
+:::
+
+#### Ejercicio 2
+
+Ejecuta el siguiente código e identifica los errores.
+
+```{python}
+#| error: true
+dividendo = "3.75"
+dividendo_new = dividendo * 0.1
+```
+
+Ingresa el código anterior en una estructura `try-except` donde se especifique el tipo de error que se está dando. Imprime un mensaje de error personalizado y acorde al caso.
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+try:
+    dividendo = "3.75"
+    dividendo_new = dividendo * 0.1
+except TypeError:
+    print("Error: Variable con tipo equivocado")
+```
+:::
+
+#### Ejercicio 3
+
+Investiga acerca de lo que representa el tipo de error `NameError`. Escribe un código de ejemplo en donde se genere este tipo de error.
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+#| error: true
+a = 5
+b = 2
+print(a + c)
+```
+:::
+
+Ingresa el código creado en una estructura `try-except` donde se especifique el tipo de error que se está dando. Imprime un mensaje de error personalizado y acorde al caso.
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+try:
+    a = 5
+    b = 2
+    print(a + c)
+except NameError:
+    print("Error: Variable no definida")
+```
+:::
+
+### Manipulación y procesamiento de cadenas de texto
+
+#### Ejercicio 1
+
+Define una variable `descripcion` con el valor:
+
+> DataCorp es una empresa líder en análisis de datos.
+
+Luego muéstrala en pantalla.
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+descripcion = "DataCorp es una empresa líder en análisis de datos."
+print(descripcion)
+```
+:::
+
+Imprime el número de caracteres en la variable.
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+print(len(descripcion))
+```
+:::
+
+Modifica la variable para que todos los caracteres estén en mayúsculas y vuelve a imprimirla.
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+descripcion = descripcion.upper()
+print(descripcion)
+```
+:::
+
+#### Ejercicio 2
+
+Imprime el primer carácter de la variable `descripcion`.
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+print(descripcion[0])
+```
+:::
+
+Imprime los primeros 8 caracteres de la variable.
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+print(descripcion[0:8])
+```
+:::
+
+::: {.callout-tip title="Slicing abreviado"}
+Recuerda que en este caso en concreto podrías prescindir del valor de `0` en el *slice*.
+:::
+
+Extrae la palabra "LÍDER" de la variable usando *slicing*. Asigna el resultado a una nueva variable `calidad_empresa`. Para facilitar la búsqueda de esta palabra te sugiero emplear el método `find`.
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+inicio = descripcion.find("LÍDER")
+final = inicio + len("LÍDER")
+calidad_empresa = descripcion[inicio:final]
+print(calidad_empresa)
+```
+:::
+
+#### Ejercicio 3
+
+Sea la variable `tasa` dada por el valor de $5\%$. Usa un *f-string* para crear un mensaje que diga:
+
+> DataCorp ha crecido a una tasa de `tasa`% este año.
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+tasa_pct = 0.05
+print(f"DataCorp ha crecido a una tasa de {tasa_pct:.0%} este año.")
+```
+:::
+
+Repite el ejercicio usando el método `format`.
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+print("DataCorp ha crecido a una tasa de {:.0%} este año.".format(tasa_pct))
+```
+:::
+
+#### Ejercicio 4
+
+Divide la variable `descripcion` en palabras individuales y asígnalas a una lista llamada `palabras`. Emplea el método `split`.
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+palabras = descripcion.split()
+print(palabras)
+```
+:::
+
+En una nueva variable, utiliza el método `join` para unir los elementos de la lista en una sola cadena, separando cada palabra por guiones bajos `_`.
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+separador = "_"
+palabras_unidas = separador.join(palabras)
+print(palabras_unidas)
+```
+:::
+
+Reemplaza la palabra "LÍDER" por "PIONERA" en la variable con el método `replace`.
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+palabras_unidas = palabras_unidas.replace("LÍDER", "PIONERA")
+print(palabras_unidas)
+```
+:::
+
+#### Ejercicio 5
+
+Descifra el siguiente mensaje en código usando las herramientas que conoces de **Python** para el manejo de cadenas de texto:
+
+> sgn1rts@3d@0su@l3@n3@0tr3px3@nu@rar3d1sn0c@s3d3up@3t@ay
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+mensaje = "sgn1rts@3d@0su@l3@n3@0tr3px3@nu@rar3d1sn0c@s3d3up@3t@ay"
+
+# Reemplazar @ por espacios
+mensaje = mensaje.replace("@", " ")
+
+# Reemplazar 3 por e
+mensaje = mensaje.replace("3", "e")
+
+# Reemplazar 1 por i
+mensaje = mensaje.replace("1", "i")
+
+# Reemplazar 0 por o
+mensaje = mensaje.replace("0", "o")
+
+# Invertir el mensaje
+mensaje = mensaje[::-1]
+
+print(mensaje)
+```
+:::
+
+### Creación, acceso y modificación de listas
+
+#### Ejercicio 1
+
+Crea una lista `years` que contenga los años entre 2014 y 2025, e imprime su longitud.
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+years = [2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025]
+print(len(years))
+```
+:::
+
+::: {.callout-tip title="Una forma más eficiente"}
+Una forma eficiente de hacer esto es mediante las funciones `range` y `list`. El código quedaría de la siguiente forma:
+
+```python
+years = list(range(2014, 2026))
+print(len(years))
+```
+:::
+
+Crea una lista `dividendos` que contenga 12 números reales cualesquiera entre 1 y 3, y que representan los dividendos de la empresa DataCorp en los años generados en la lista anterior. Imprime el tipo de variable de `dividendos`.
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+dividendos = [1.2, 1.35, 1.5, 1.6, 1.8, 1.95, 2, 2.1, 2.3, 2.5, 1.98, 2.31]
+print(type(dividendos))
+```
+:::
+
+#### Ejercicio 2
+
+Calcula la diferencia en los dividendos entre el primer y el último año de la lista, y guarda el resultado en una variable llamada `diferencia`.
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+diferencia = dividendos[-1] - dividendos[0]
+```
+:::
+
+Crea una nueva lista llamada `dividendos_ultimos` que contenga solo los dividendos de los últimos 5 años.
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+dividendos_ultimos = dividendos[-5:]
+```
+:::
+
+Calcula el promedio simple de los dividendos en los últimos 5 años usando la lista `dividendos_ultimos`. Recuerda que el promedio simple $\mu$ se obtiene de la fórmula:
+
+$$\mu = \frac{\sum x}{n}$$
+
+donde $x$ son los elementos a promediar y $n$ es la cantidad de elementos.
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+promedio = sum(dividendos_ultimos) / len(dividendos_ultimos)
+print(promedio)
+```
+:::
+
+#### Ejercicio 3
+
+Calcula la tasa acumulada de crecimiento de los `dividendos` desde 2014 hasta 2025. Guarda el resultado en la variable `tasa_ac`.
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+tasa_ac = diferencia / dividendos[0]
+```
+:::
+
+Usando `tasa_ac`, obtén el crecimiento porcentual promedio `p` usando la siguiente fórmula:
+
+$$p = \sqrt[n-1]{1 + \text{tasa}_{ac}} - 1$$
+
+Imprime el resultado obtenido.
+
+::: {.callout-note collapse="true" title="Solución"}
+```{python}
+p = (1 + tasa_ac)**(1 / (len(dividendos) - 1)) - 1
+print(f"{p:.1%}")
+```
+:::

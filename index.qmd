@@ -1,0 +1,18 @@
+# Presentación {.unnumbered}
+
+Bienvenido a esta guía práctica para aprender **ciencia de datos** de forma aplicada a casos. Cada capítulo parte de un contexto realista, trabaja con datos reales y termina con ejercicios para que practiques por tu cuenta.
+
+## Cómo está organizada
+
+La guía se divide en partes, cada una con varios capítulos:
+
+* **I. Fundamentos de Programación con Python**
+* **II. Preparación y Análisis de Datos**
+* **III. Conceptos Básicos de Aprendizaje Computacional** *(próximamente)*
+* **IV. Métodos Matemáticos para Aprendizaje Computacional** *(próximamente)*
+* **V. Modelos Avanzados de Aprendizaje Computacional** *(próximamente)*
+* **VI. Herramientas complementarias para Ciencia de Datos** *(próximamente)*
+
+## Cómo usarla
+
+En cada capítulo encontrarás el código y sus resultados. Te recomiendo reproducir cada ejemplo por tu cuenta, por ejemplo en [Google Colab](https://colab.research.google.com/), e intentar resolver los ejercicios antes de abrir las soluciones.
